@@ -1,5 +1,5 @@
-import Home from './screens/Home'
-import Login from './screens/Login'
+import Home from './screens/Home/Home'
+import Login from './screens/Login/Login'
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';

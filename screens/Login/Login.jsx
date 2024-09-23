@@ -1,7 +1,7 @@
 const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } = require("react-native")
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-
+import styles from './styles';
 
 function Login() {
     // Provides navigation
@@ -24,43 +24,37 @@ function Login() {
         <View>
             {/* UNT logo */}
             <View>
-                <Image source={require('../assets/unt_logo.png')} />
-            </View>
-
-            {/* Text Inputs */}
-            <View>
-                <View>
-                    <Text>EUID: </Text>
-                    <TextInput 
-                        placeholder="Type EUID here"
-                        onChange={e => handleName(e)}
-                    />
-                    <Text>Password: </Text>
-                    <TextInput placeholder="Type Password here" />
+                <View style ={styles.logoContainer}>
+                <Image style={styles.logo} source={require('../../assets/unt_logo.png')} />
                 </View>
             </View>
 
+            {/* Text Inputs */}
+            <View style={styles.loginContainer}>
+            <Text style={styles.inputLabels}>EUID </Text>
+                <View style={styles.textBubble}>
+                    <TextInput 
+                        placeholder="Type EUID here" style={styles.textInput}
+                        onChange={e => handleName(e)}/>
+                </View>
+                <Text style={styles.inputLabels}>Password </Text>
+                <View style={styles.textBubble}>
+                    <TextInput placeholder="Type Password here" style={styles.textInput}/>
+                    </View>
+            </View>
+
             {/* Button */}
-            <View>
-                <TouchableOpacity 
+            <View style={styles.button}>
+                <TouchableOpacity style={styles.inBut} 
                     onPress={() => {
                         navigation.navigate('Home');
-                    }}
-                    style={styles.buttonStyle}
-                >
-                    <Text>Sign In</Text>
+                    }}>
+                    <Text style={styles.textSign}>Sign In</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
-    /* Below is just for testing purposes, can be removed by designer */
-    buttonStyle:{
-        textAlign: 'center',
-        marginTop: 30,
-    }
-});
 
 export default Login;
