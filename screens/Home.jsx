@@ -1,4 +1,6 @@
 import { Text, View, StyleSheet } from "react-native";
+import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
+import { TouchableOpacity } from "react-native";
 
 function Home() {
     console.log("Home Screen reached!");
@@ -14,7 +16,7 @@ const styles = StyleSheet.create({
     headingStyle:{
         textAlign: 'center',
         marginTop: 100,
-    }
+    },
 });
 
 export default Home;
