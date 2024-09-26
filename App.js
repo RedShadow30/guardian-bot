@@ -1,6 +1,5 @@
-import Home from './screens/Home'
-import Login from './screens/Login'
-import Chat from './screens/Chat'
+import Home from './screens/Home/Home'
+import Login from './screens/Login/Login'
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
@@ -19,6 +18,5 @@ export default function App() {
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
-    // <Chat />
   );
 }
