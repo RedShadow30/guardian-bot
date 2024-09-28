@@ -3,6 +3,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
 import police_stations from "../../assets/data/dfw_police_stations.json"
+import PoliceMarker from '../../components/PoliceMarker';
 
 // Initial Region set to Grapevine (center): UNT, TCU, SMU
 const INITIAL_REGION = {
@@ -14,8 +15,6 @@ const INITIAL_REGION = {
 
 function Home() {
     console.log("Home Screen reached!");
-    console.log(police_stations);
-    
     
     return (
         <View style={styles.container}>
@@ -27,17 +26,7 @@ function Home() {
             >
                 {/* Traverse over the list of police stations and place marker for each on map */}
                 {police_stations.map((station) => (
-                    <Marker
-                        key={station.id} 
-                        coordinate={{
-                            latitude: station.latitude,
-                            longitude: station.longitude,
-                        }}
-                        title={station.title}
-                        description='Police station' 
-                    >
-                        {/* Can add icon here. See Documentation. */}
-                    </Marker>
+                    <PoliceMarker key={station.id} station={station} />
                 ))}
             </MapView>
         </View>
