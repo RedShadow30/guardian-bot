@@ -1,0 +1,74 @@
+[
+    {
+      "id": 1,
+      "latitude": 32.7944,
+      "longitude": -96.7653,
+      "title": "Dallas Police Department - Northeast Division"
+    },
+    {
+      "id": 2,
+      "latitude": 32.8481,
+      "longitude": -96.7614,
+      "title": "Dallas Police Department - Northwest Division"
+    },
+    {
+      "id": 3,
+      "latitude": 32.7763,
+      "longitude": -96.8592,
+      "title": "Dallas Police Department - Southwest Division"
+    },
+    {
+      "id": 4,
+      "latitude": 32.7145,
+      "longitude": -96.7832,
+      "title": "Dallas Police Department - Southeast Division"
+    },
+    {
+      "id": 5,
+      "latitude": 33.2148,
+      "longitude": -97.1331,
+      "title": "Denton Police Department"
+    },
+    {
+      "id": 6,
+      "latitude": 33.2253,
+      "longitude": -97.1459,
+      "title": "Denton Police Department - North Station"
+    },
+    {
+      "id": 7,
+      "latitude": 33.1934,
+      "longitude": -97.1142,
+      "title": "Denton Police Department - South Station"
+    },
+    {
+      "id": 8,
+      "latitude": 32.7554,
+      "longitude": -97.3324,
+      "title": "Fort Worth Police Department"
+    },
+    {
+      "id": 9,
+      "latitude": 32.8142,
+      "longitude": -97.3439,
+      "title": "Fort Worth Police Department - North Division"
+    },
+    {
+      "id": 10,
+      "latitude": 32.6945,
+      "longitude": -97.3112,
+      "title": "Fort Worth Police Department - South Division"
+    },
+    {
+      "id": 11,
+      "latitude": 32.7451,
+      "longitude": -97.3645,
+      "title": "Fort Worth Police Department - East Division"
+    },
+    {
+      "id": 12,
+      "latitude": 32.7863,
+      "longitude": -97.3958,
+      "title": "Fort Worth Police Department - West Division"
+    }
+  ]
