@@ -1,4 +1,5 @@
 const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } = require("react-native")
+import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import styles from './styles';
@@ -47,7 +48,12 @@ function Login() {
                 const data = await response.json();
                 console.log('Login successful: ', data);
                 // Successful then go to Home
-                navigation.navigate('Home');
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeScreen' }],
+                    })
+                );
             }
             else {
                 console.error('Login failed: ', response.status);
