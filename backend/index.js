@@ -8,7 +8,7 @@ const app = express();
 app.use(cors()); 
  
 // Establish connection to MongoDB
-mongoose.connect(`mongodb+srv://neonninja:awesome@gb-usercluster.gihqc.mongodb.net/`, {dbName: 'guardian_bot'})
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@gb-usercluster.gihqc.mongodb.net/`, {dbName: 'guardian_bot'})
     .then(() => console.log('Connected to MongoDB...'))
     .catch(err => console.log('Could not connect to MongoDB...'));
 
