@@ -31,9 +31,9 @@ function Login() {
         // Authentication
         try {
             console.log('Authenticating...');
-            
+
             // API request to backend API to authenticate user
-            const response = await fetch('http://{Your_IPv4_Address}:3000/api/auth', {
+            const response = await fetch(`http://{Your_IPv4_Address}:3000/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
