@@ -28,11 +28,9 @@ function BottomTabs({ navigation }) {
         tabBarStyle: {
           backgroundColor: '#00B7B7', // Background color for the tab bar
         },
+        tabBarActiveTintColor: "white",     // Active tab color
+        tabBarInactiveTintColor: "#BED3F3"  // Inactive tab color
       })}
-      tabBarOptions={{
-        activeTintColor: 'white', // Active tab color
-        inactiveTintColor: '#BED3F3', // Inactive tab color
-      }}
     >
       {/* Home Screen */}
       <Tab.Screen 
