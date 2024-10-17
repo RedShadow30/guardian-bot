@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: 40,
+      marginTop: -40,
     },
     content: {
       flex: 1,
@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: 'bold',
       marginBottom: 15,
+      
     },
     grid: {
       flexDirection: 'row',
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
       borderColor: '#dddddd',
       borderWidth: 1,
       padding: 75,
-      marginBottom: 15,
+      marginBottom: 1,
       borderRadius: 10,
     }
   })
