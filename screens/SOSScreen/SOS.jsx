@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native-vector-icons/MaterialCommunityIcons';
+import { View, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles'
 
@@ -21,10 +19,18 @@ const CrimeItem = ({ crime }) => {
 
 function SOS() {
   const crimes = ['Theft', 'Stalking', 'Harrassment', 'Break-In', 'Hazard', 'Vandalism', 'Other']
-  const [text, setText] = useState('Describe crime report here...')
+  const [text, setText] = useState()
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={'position'} // Scrolls the whole page up
+      keyboardVerticalOffset={50} // Adds space below button
+    >
+      <ScrollView 
+        contentContainerStyle={{ flexGrow: 16, justifyContent: 'center', paddingBottom: 80 }} // Adds space below button
+        keyboardShouldPersistTaps='handled' // Ensures taps are handled properly
+      >
         {/* First part of SOS Page - Crime Buttons */}
         <View style={styles.content}>
           <Text style={styles.title}>Select crime to report</Text>
@@ -44,11 +50,9 @@ function SOS() {
           
           {/* Description Input */}
           <View style={styles.textBox}>
-            <TextInput 
-              editable
-              multiline
-              numberOfLines={4}
-              maxLength={40}
+            <TextInput
+              editable 
+              placeholder='Describe crime report here...'
               onChangeText={newText => setText(newText)}
               defaultValue={text}
               style={styles.text}
@@ -65,8 +69,8 @@ function SOS() {
             <Text style={styles.buttonText}>Submit</Text>
           </LinearGradient>
         </View>
-      
-    </SafeAreaView>
+      </ScrollView> 
+    </KeyboardAvoidingView>
   );
 }
 
