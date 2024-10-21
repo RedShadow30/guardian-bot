@@ -9,9 +9,10 @@ const styles=StyleSheet.create({
         alignItems: 'center',
     },
     logo: {
-        height: 184,
-        width: 425,
-        marginTop: 90,
+        height: 145,
+        width: 335,
+        marginTop: 150,
+        marginBottom: 40,
         marginVertical: 85,
     },
     inputLabels:{
@@ -63,6 +64,28 @@ const styles=StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: 'white',
+    },
+    errorBox: {
+        borderRadius: 5,
+        marginTop: -10,
+        padding: 15,
+        alignItems: 'center',
+        width: '80%',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 3, 
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
+    },
+    errorText: {
+        width: 500,
+        color:'red', 
+        fontWeight: 'bold', 
+        marginTop: -20, 
+        fontSize: 18,
+        textAlign: 'center',
     },
 })
 
