@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TextInput } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Button } from 'react-native-vector-icons/MaterialCommunityIcons';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles'
 
 {/* List each crime from list */}
 const CrimeItem = ({ crime }) => {
   return (
-    <LinearGradient 
-      style={styles.button}
-      colors={['#900404', '#010C80', 'transparent']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 2, y: 0 }}
-    >
-      <Text style={styles.buttonText}>{crime}</Text>
-    </LinearGradient>
+    <GradientButton text={crime} />
   );
 };
 
 function SOS() {
   const crimes = ['Theft', 'Stalking', 'Harrassment', 'Break-In', 'Hazard', 'Vandalism', 'Other']
-  const [text, setText] = useState('Describe crime report here...')
+  const [text, setText] = useState()
 
   return (
-    <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView 
+      style={styles.container} 
+      behavior={'position'} // Scrolls the whole page up
+      keyboardVerticalOffset={50} // Adds space below button
+    >
+      <ScrollView 
+        contentContainerStyle={{ flexGrow: 16, justifyContent: 'center', paddingBottom: 80 }} // Adds space below button
+        keyboardShouldPersistTaps='handled' // Ensures taps are handled properly
+      >
         {/* First part of SOS Page - Crime Buttons */}
         <View style={styles.content}>
           <Text style={styles.title}>Select crime to report</Text>
@@ -44,11 +43,9 @@ function SOS() {
           
           {/* Description Input */}
           <View style={styles.textBox}>
-            <TextInput 
-              editable
-              multiline
-              numberOfLines={4}
-              maxLength={40}
+            <TextInput
+              editable 
+              placeholder='Describe crime report here...'
               onChangeText={newText => setText(newText)}
               defaultValue={text}
               style={styles.text}
@@ -56,17 +53,10 @@ function SOS() {
           </View>
 
           {/* Submit Button */}
-          <LinearGradient 
-            style={styles.button}
-            colors={['#900404', '#010C80', 'transparent']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 2, y: 0 }}
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </LinearGradient>
+          <GradientButton text={'Submit'}/>
         </View>
-      
-    </SafeAreaView>
+      </ScrollView> 
+    </KeyboardAvoidingView>
   );
 }
 

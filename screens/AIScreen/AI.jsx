@@ -20,6 +20,7 @@ function AI() {
     <KeyboardAvoidingView 
       behavior={Platform.OS === "ios" ? "padding" : "height"} 
       style={styles.container}
+      keyboardVerticalOffset={65} // Shifts input box above keyboard
     >
       {/* Chat messages */}
       <FlatList
