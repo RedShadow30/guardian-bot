@@ -1,19 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import GradientButton from '../../components/GradientButton';
 import styles from './styles'
 
 {/* List each crime from list */}
 const CrimeItem = ({ crime }) => {
   return (
-    <LinearGradient 
-      style={styles.button}
-      colors={['#900404', '#010C80', 'transparent']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 2, y: 0 }}
-    >
-      <Text style={styles.buttonText}>{crime}</Text>
-    </LinearGradient>
+    <GradientButton text={crime} />
   );
 };
 
@@ -60,14 +53,7 @@ function SOS() {
           </View>
 
           {/* Submit Button */}
-          <LinearGradient 
-            style={styles.button}
-            colors={['#900404', '#010C80', 'transparent']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 2, y: 0 }}
-          >
-            <Text style={styles.buttonText}>Submit</Text>
-          </LinearGradient>
+          <GradientButton text={'Submit'}/>
         </View>
       </ScrollView> 
     </KeyboardAvoidingView>

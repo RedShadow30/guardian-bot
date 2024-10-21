@@ -22,16 +22,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       margin: 13,
     },
-    buttonText: {
-      color: 'white',
-      fontSize: 16,
-    },
-    button: {
-      paddingVertical: 15,
-      paddingHorizontal: 25,
-      borderRadius: 8,
-      margin: 8,
-    },
     text: {
       color: 'gray',
     },
