@@ -2,18 +2,20 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home'; 
 import AI from '../AIScreen/AI';
-import SOS from '../SOSScreen/SOS';
+import SOS from '../SOSScreen/SOS'; 
 import Profile from '../ProfileScreen/Profile';
+import ReportedPage from '../SOSScreen/ReportedScreen/ReportedPage';
+import ThankYouPage from '../SOSScreen/ReportedScreen/ThankYouScreen/ThankYouScreen';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { TouchableOpacity, View, Text } from 'react-native';
-import styles from './styles'; // Import styles from styles.js
+import styles from './styles'; 
 
 const Tab = createBottomTabNavigator();
 
 // Custom button for the Home tab
 const CustomHomeTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
-    style={styles.homeButton} // Apply styles for the Home button
+    style={styles.homeButton} 
     onPress={onPress}
   >
     {children}
@@ -23,7 +25,7 @@ const CustomHomeTabBarButton = ({ children, onPress }) => (
 // Custom button for the SOS tab
 const CustomSOSTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
-    style={styles.sosButton} // Apply styles for the SOS button
+    style={styles.sosButton} 
     onPress={onPress}
   >
     {children}
@@ -33,87 +35,87 @@ const CustomSOSTabBarButton = ({ children, onPress }) => (
 // Custom button for the Profile tab
 const CustomProfileTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
-    style={styles.profileButton} // Apply styles for the Profile button
+    style={styles.profileButton} 
     onPress={onPress}
   >
     {children}
   </TouchableOpacity>
 );
 
-function BottomTabs({ navigation }) {
+function BottomTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
           let iconName;
           if (route.name === 'Home') {
-            iconName = 'home'; // Icon for Home tab
+            iconName = 'home'; 
           } else if (route.name === 'SOS') {
-            iconName = 'exclamation-circle'; // Icon for SOS tab
+            iconName = 'exclamation-circle'; 
           } else if (route.name === 'Profile') {
-            iconName = 'user'; // Icon for Profile tab
+            iconName = 'user'; 
           }
-          return <Icon name={iconName} size={size} color={color} />; // Return the icon component
+          return <Icon name={iconName} size={size} color={color} />; 
         },
         tabBarStyle: {
-          backgroundColor: '#00B7B7', // Background color for the tab bar
-          height: 75, // Height of the tab bar
-          position: 'absolute', // Keep the tab bar positioned at the bottom
-          bottom: 10, // Position it above the screen edge
-          left: 20, // Center the tab bar horizontally
-          right: 20, // Center the tab bar horizontally
-          borderRadius: 15, // Rounded corners
-          elevation: 0, // Shadow for Android
+          backgroundColor: '#00B7B7', 
+          height: 75, 
+          position: 'absolute', 
+          bottom: 10, 
+          left: 20, 
+          right: 20, 
+          borderRadius: 15, 
+          elevation: 0, 
         },
-        tabBarActiveTintColor: "white",     // Active tab color
-        tabBarInactiveTintColor: "#BED3F3"  // Inactive tab color
+        tabBarActiveTintColor: "white",     
+        tabBarInactiveTintColor: "#BED3F3"  
       })}
     >
       {/* Home Screen */}
       <Tab.Screen 
-        name="Home" 
-        component={Home} 
-        options={{
-          tabBarButton: (props) => <CustomHomeTabBarButton {...props} />, // Use custom button for Home
-          headerTitle: () => (
-            <View style={styles.headerContainer}>
-              <Icon name="globe" size={25} color="white" />{/* Globe icon */}
-              <Text style={styles.headerText}>Home</Text>{/* Header Name */}
-            </View>
-          ),
-          headerStyle: {
-            backgroundColor: '#00B7B7', // Header background color
-          },
-          headerTintColor: 'white', // Header text color
-          headerLeft: () => (
-            <TouchableOpacity onPress={() => alert('Hamburger menu pressed!')} style={{ marginLeft: 15 }}>
-              <Icon name="bars" size={25} color="white" />{/* Hamburger icon */}
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('AI')} style={{ marginRight: 15 }}>
-              <Icon name="rocket" size={25} color="white" />{/* Rocket icon for AI */}
-            </TouchableOpacity>
-          ),
-        }} 
-      />
+  name="Home" 
+  component={Home} 
+  options={({ navigation }) => ({ // Pass navigation here
+    tabBarButton: (props) => <CustomHomeTabBarButton {...props} />, 
+    headerTitle: () => (
+      <View style={styles.headerContainer}>
+        <Icon name="globe" size={25} color="white" />
+        <Text style={styles.headerText}>Home</Text>
+      </View>
+    ),
+    headerStyle: {
+      backgroundColor: '#00B7B7', 
+    },
+    headerTintColor: 'white', 
+    headerLeft: () => (
+      <TouchableOpacity onPress={() => alert('Hamburger menu pressed!')} style={{ marginLeft: 15 }}>
+        <Icon name="bars" size={25} color="white" />
+      </TouchableOpacity>
+    ),
+    headerRight: () => (
+      <TouchableOpacity onPress={() => navigation.navigate('AI')} style={{ marginRight: 15 }}>
+        <Icon name="rocket" size={25} color="white" />
+      </TouchableOpacity>
+    ),
+  })} 
+/>
 
       {/* SOS Screen */}
       <Tab.Screen 
         name="SOS" 
         component={SOS} 
         options={{
-          tabBarButton: (props) => <CustomSOSTabBarButton {...props} />, // Use custom button for SOS
+          tabBarButton: (props) => <CustomSOSTabBarButton {...props} />, 
           headerTitle: () => (
             <View style={styles.headerContainer}>
-              <Icon name="exclamation-circle" size={25} color="white" />{/* SOS icon */}
-              <Text style={styles.headerText}>Report</Text>{/* Header Name */}
+              <Icon name="exclamation-circle" size={25} color="white" />
+              <Text style={styles.headerText}>Report</Text>
             </View>
           ),
           headerStyle: {
-            backgroundColor: '#00B7B7', // Header background color
+            backgroundColor: '#00B7B7', 
           },
-          headerTintColor: 'white', // Header text color
+          headerTintColor: 'white', 
         }} 
       />
 
@@ -122,20 +124,20 @@ function BottomTabs({ navigation }) {
         name="Profile" 
         component={Profile} 
         options={{
-          tabBarButton: (props) => <CustomProfileTabBarButton {...props} />, // Use custom button for Profile
+          tabBarButton: (props) => <CustomProfileTabBarButton {...props} />, 
           headerTitle: () => (
             <View style={styles.headerContainer}>
-              <Icon name="user" size={25} color="white" />{/* User icon */}
-              <Text style={styles.headerText}>Profile</Text>{/* Header Name */}
+              <Icon name="user" size={25} color="white" />
+              <Text style={styles.headerText}>Profile</Text>
             </View>
           ),
           headerStyle: {
-            backgroundColor: '#00B7B7', // Header background color
+            backgroundColor: '#00B7B7', 
           },
-          headerTintColor: 'white', // Header text color
+          headerTintColor: 'white', 
         }} 
       />
-
+      
       {/* AI Screen */}
       <Tab.Screen 
         name="AI" 
@@ -152,6 +154,24 @@ function BottomTabs({ navigation }) {
           },
           headerTintColor: 'white', // Header text color
           tabBarButton: () => null, // Hides the AI tab from the bottom
+        }} 
+      />
+
+      <Tab.Screen 
+        name="ReportedPage" 
+        component={ReportedPage} 
+        options={{
+          tabBarButton: () => null, 
+          tabBarStyle: { display: 'none' }
+        }}
+      />
+
+      <Tab.Screen 
+        name="ThankYouPage" 
+        component={ThankYouPage} 
+        options={{
+          tabBarButton: () => null, // Hide the Thank You Page from the tab bar
+          tabBarStyle: { display: 'none' } // Hides the tab bar when on this page
         }} 
       />
     </Tab.Navigator>
