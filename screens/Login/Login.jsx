@@ -33,11 +33,7 @@ function Login() {
             console.log('Authenticating...');
 
             // API request to backend API to authenticate user
-<<<<<<< HEAD
-            const response = await fetch(`http://192.168.1.70:3000/api/auth`, {
-=======
             const response = await fetch(`http://IP_ADDRESS:3000/api/auth`, {
->>>>>>> bd9d3a180999d52ea2e5b844ae09b2d4206ed7b2
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
