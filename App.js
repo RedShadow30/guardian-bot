@@ -10,7 +10,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {/* Define the Login screen in the stack */}
-       {/* <Stack.Screen name="Login" component={Login} /> */} 
+        <Stack.Screen name="Login" component={Login} />
         {/* Define the HomeScreen that contains the BottomTabs */}
         <Stack.Screen name="HomeScreen" component={BottomTabs} />
       </Stack.Navigator>
