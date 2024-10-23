@@ -1,4 +1,4 @@
-const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity } = require("react-native")
+const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
 import { CommonActions } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
@@ -33,7 +33,11 @@ function Login() {
             console.log('Authenticating...');
 
             // API request to backend API to authenticate user
+<<<<<<< HEAD
             const response = await fetch(`http://192.168.1.70:3000/api/auth`, {
+=======
+            const response = await fetch(`http://IP_ADDRESS:3000/api/auth`, {
+>>>>>>> bd9d3a180999d52ea2e5b844ae09b2d4206ed7b2
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +60,6 @@ function Login() {
                 );
             }
             else {
-                console.error('Login failed: ', response.status);
                 console.log('Inside responseData - False');
                 setErrors('Invalid credentials');
             }
@@ -66,54 +69,72 @@ function Login() {
             console.error(error);
             // Update error state
             setErrors('Error logging in: ' + error.message);
+            console.log(error.message);
+            
         }
         console.log(email, password);
     };
 
     return (
-        <View>
-            {/* UNT logo */}
+        <KeyboardAvoidingView 
+            style={styles.container} 
+            behavior={'position'} // Scrolls the whole page up
+        >
+            <ScrollView 
+                contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} // Adds space below button
+                keyboardShouldPersistTaps='handled' // Ensures taps are handled properly
+            >
             <View>
-                <View style ={styles.logoContainer}>
-                    <Image  style={styles.logo} source={require('../../assets/unt_logo.png')} />
+                {/* UNT logo */}
+                <View>
+                    <View style ={styles.logoContainer}>
+                        <Image  style={styles.logo} source={require('../../assets/unt_logo.png')} />
+                    </View>
                 </View>
-            </View>
 
-            {/* Text Inputs */}
-            <View style={styles.loginContainer}>
-            <Text style={styles.inputLabels}>Email: </Text>
-                <View style={styles.textBubble}>
-                    <TextInput 
-                        placeholder="Type Email here"
-                        onChangeText={ text => setEmail(text) }
-                        value={email}
-                        autoCorrect={false}
-                        style={styles.textInput}
-                    />
+                {/* Text Inputs */}
+                <View style={styles.loginContainer}>
+                <Text style={styles.inputLabels}>Email: </Text>
+                    <View style={styles.textBubble}>
+                        <TextInput 
+                            placeholder="Type Email here"
+                            onChangeText={ text => setEmail(text) }
+                            value={email}
+                            autoCorrect={false}
+                            style={styles.textInput}
+                        />
+                    </View>
+                    <Text  style={styles.inputLabels}>Password: </Text>
+                    <View style={styles.textBubble}>
+                        <TextInput 
+                            placeholder="Type Password here"
+                            onChangeText={ text => setPassword(text) }
+                            value={password}
+                            secureTextEntry
+                            autoCorrect={false} 
+                            style={styles.textInput}
+                        />
+                    </View>
                 </View>
-                <Text  style={styles.inputLabels}>Password: </Text>
-                <View style={styles.textBubble}>
-                    <TextInput 
-                        placeholder="Type Password here"
-                        onChangeText={ text => setPassword(text) }
-                        value={password}
-                        secureTextEntry
-                        autoCorrect={false} 
-                        style={styles.textInput}
-                    />
-                </View>
-            </View>
 
-            {/* Button */}
-            <View style={styles.button}>
-                <TouchableOpacity style={styles.inBut} 
-                    onPress={ validateForm }
-                >
-                <Text style={styles.textSign}>Sign In</Text>
-                </TouchableOpacity>
+                {/* Button */}
+                <View style={styles.button}>
+                    <TouchableOpacity style={styles.inBut} 
+                        onPress={ validateForm }
+                    >
+                    <Text style={styles.textSign}>Sign In</Text>
+                    </TouchableOpacity>
+                </View>
+
+                {/* Display Error Message */}
+                <View style={{alignItems: 'center',}}>
+                    {errors && <View style={styles.errorBox}>
+                        <Text style={styles.errorText}>{errors}</Text>
+                    </View>}
+                </View>
             </View>
-            { errors && <Text style={{color:'red'}}>{errors.message}</Text>}
-        </View>
+        </ScrollView>
+    </KeyboardAvoidingView>
     );
 }
 
