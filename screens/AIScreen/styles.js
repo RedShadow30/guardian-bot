@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#D0D0D0',
     borderRadius: 10,
     marginVertical: 5,
     alignSelf: 'flex-start', // Aligns the messages to the left
@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: 'row',
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: 2,
     alignItems: 'center',
   },
   input: {
@@ -32,8 +31,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 20,
     paddingHorizontal: 15,
-    paddingVertical:10,
+    paddingVertical:15,
     marginRight: 10,
+    marginTop: 130,
+    marginBottom: 130,
     fontSize:15,
   },
 });
