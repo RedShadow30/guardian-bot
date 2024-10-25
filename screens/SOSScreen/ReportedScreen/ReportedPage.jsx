@@ -46,7 +46,7 @@ const ReportedPage = ({ route, navigation }) => {
       </View>
 
       <View style={styles.detailBox}>
-        <Text style={styles.label}>EUID:</Text>
+        <Text style={styles.label}>Full Name:</Text>
         <Text style={styles.value}>Placeholder EUID</Text>
       </View>
 

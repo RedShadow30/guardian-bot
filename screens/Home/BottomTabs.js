@@ -55,10 +55,14 @@ function BottomTabs() {
           } else if (route.name === 'Profile') {
             iconName = 'user'; 
           }
-          return <Icon name={iconName} size={size} color={color} />; 
+          return <Icon name={iconName} size={40} color={color} />; 
+        },
+        tabBarLabelStyle: {
+          fontSize: 20, 
+          fontWeight: 'bold',
         },
         tabBarStyle: {
-          backgroundColor: '#00B7B7', 
+          backgroundColor: 'black', 
           height: 75, 
           position: 'absolute', 
           bottom: 10, 
@@ -68,7 +72,7 @@ function BottomTabs() {
           elevation: 0, 
         },
         tabBarActiveTintColor: "white",     
-        tabBarInactiveTintColor: "#BED3F3"  
+        tabBarInactiveTintColor: "#b7b7b7",
       })}
     >
       {/* Home Screen */}
@@ -84,7 +88,7 @@ function BottomTabs() {
       </View>
     ),
     headerStyle: {
-      backgroundColor: '#00B7B7', 
+      backgroundColor: 'black', 
     },
     headerTintColor: 'white', 
     headerLeft: () => (
@@ -106,14 +110,13 @@ function BottomTabs() {
         component={SOS} 
         options={{
           tabBarButton: (props) => <CustomSOSTabBarButton {...props} />, 
-          headerTitle: () => (
-            <View style={styles.headerContainer}>
-              <Icon name="exclamation-circle" size={25} color="white" />
-              <Text style={styles.headerText}>Report</Text>
-            </View>
-          ),
+          tabBarLabelStyle: {
+            fontSize: 25,
+            fontWeight: 'bold',
+            marginBottom: 5, // Adjust as needed
+          },
           headerStyle: {
-            backgroundColor: '#00B7B7', 
+            backgroundColor: 'black', 
           },
           headerTintColor: 'white', 
         }} 
@@ -132,7 +135,7 @@ function BottomTabs() {
             </View>
           ),
           headerStyle: {
-            backgroundColor: '#00B7B7', 
+            backgroundColor: 'black', 
           },
           headerTintColor: 'white', 
         }} 
@@ -150,7 +153,7 @@ function BottomTabs() {
             </View>
           ),
           headerStyle: {
-            backgroundColor: '#00B7B7', // Header background color
+            backgroundColor: 'black', // Header background color
           },
           headerTintColor: 'white', // Header text color
           tabBarButton: () => null, // Hides the AI tab from the bottom
@@ -172,6 +175,7 @@ function BottomTabs() {
         options={{
           tabBarButton: () => null, // Hide the Thank You Page from the tab bar
           tabBarStyle: { display: 'none' } // Hides the tab bar when on this page
+        
         }} 
       />
     </Tab.Navigator>
