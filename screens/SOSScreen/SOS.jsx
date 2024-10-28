@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TextInput, KeyboardAvoidingView } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, Text, ScrollView, TextInput, KeyboardAvoidingView, Modal, TouchableWithoutFeedback, TouchableOpacity  } from 'react-native';
 import GradientButton from '../../components/GradientButton';
 import styles from './styles';
 
@@ -18,6 +18,9 @@ function SOS({ navigation, route }) {
   const [selectedCrime, setSelectedCrime] = useState(null);
   const [text, setText] = useState('');
   const [inputHeight, setInputHeight] = useState(40); // Set initial input height
+  const textInputRef = useRef(null);
+  const [isModalVisible, setIsModalVisible] = useState(true); // Modal state
+
 
   // Check for existing data when the component mounts or when navigating back from ReportedPage
   useEffect(() => {
@@ -70,18 +73,21 @@ function SOS({ navigation, route }) {
         {/* Description Input */}
         <View style={styles.content}>
           <Text style={styles.title}>Explain the report</Text>
-          <View style={styles.textBox}>
-            <TextInput
-              editable 
-              multiline={true} // Enable multi-line input
-              placeholder='Describe crime report here...'
-              onChangeText={newText => setText(newText)}
-              value={text}
-              style={[styles.text, { height: inputHeight }]} // Dynamically adjust height
-              onContentSizeChange={(e) => setInputHeight(e.nativeEvent.contentSize.height)} // Adjust height as text grows
-              blurOnSubmit={true} // Prevent new line on submit
-            />
-          </View>
+          <TouchableWithoutFeedback onPress={() => textInputRef.current.focus()}>
+            <View style={styles.textBox}>
+              <TextInput
+                ref={textInputRef}
+                editable
+                multiline
+                placeholder='Describe crime report here...'
+                onChangeText={newText => setText(newText)}
+                value={text}
+                style={[styles.text, { height: inputHeight }]}
+                onContentSizeChange={(e) => setInputHeight(e.nativeEvent.contentSize.height)}
+                blurOnSubmit={true}
+              />
+            </View>
+          </TouchableWithoutFeedback>
 
           {/* Submit Button */}
           <GradientButton 
@@ -89,7 +95,25 @@ function SOS({ navigation, route }) {
             onPress={handleSubmit} 
           />
         </View>
-      </ScrollView> 
+      </ScrollView>
+      {/* Disclaimer Modal */}
+      <Modal
+        transparent={true}
+        animationType="slide"
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>
+              In case of an emergency, please dial 911 immediately.
+            </Text>
+            <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+              <Text style={styles.closeButton}>Understood</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </KeyboardAvoidingView>
   );
 }

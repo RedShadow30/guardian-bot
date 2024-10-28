@@ -18,25 +18,25 @@ const styles = StyleSheet.create({
     width: 100, // Width of the SOS button
     height: 100, // Height of the SOS button
     borderRadius: 50, // Make it circular
-    backgroundColor: '#FF6347', // Red color for emergency button
+    backgroundColor: 'red', // Red color for emergency button
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: -3, // Makes the button float higher in the tab bar
+    marginBottom: -1, // Makes the button float higher in the tab bar
     position: 'absolute', // Position the SOS button absolutely
     bottom: 0, // Position it above the tab bar
-    left: '46%', // Center horizontally
+    left: '45%', // Center horizontally
     transform: [{ translateX: -35 }], // Adjust for button size
     elevation: 5, // Add shadow for Android
-    shadowColor: 'black', // Add shadow for iOS
+    shadowColor: 'white', // Add shadow for iOS
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 20,
-    shadowRadius: 4,
+    shadowRadius: 15,
   },
   homeButton: {
     width: 70, // Set a larger width for the Home button
     height: 70, // Set a larger height for the Home button
     borderRadius: 40, // Make it circular
-    backgroundColor: '#00B7B7', // Match with tab bar background
+    backgroundColor: 'black', // Match with tab bar background
     justifyContent: 'center',
     alignItems: 'center',
     left: '50%', // Center horizontally
