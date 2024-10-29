@@ -1,6 +1,5 @@
 const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
-import { CommonActions } from '@react-navigation/native';
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useState } from "react";
 import styles from './styles';
 
@@ -33,7 +32,7 @@ function Login() {
             console.log('Authenticating...');
 
             // API request to backend API to authenticate user
-            const response = await fetch(`http://IP_ADDRESS:3000/api/auth`, {
+            const response = await fetch(`http://IP:PORT/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,16 +46,43 @@ function Login() {
             if(response.ok) {
                 const data = await response.json();
                 console.log('Login successful: ', data);
-                // Successful then go to Home
-                navigation.dispatch(
-                    CommonActions.reset({
-                        index: 0,
-                        routes: [{ name: 'HomeScreen' }],
-                    })
-                );
+
+                // Check for user profile existence before registering a profile
+                const profileResponse = await fetch(`http://IP:PORT/api/registerProfile?email=${email}`)
+                
+                // Check returned response to see if profile exists with exists property
+                if(profileResponse.ok) {
+                    const profileData = await profileResponse.json();
+
+                    // Profile exists then go to HomeScreen
+                    if(profileData.exists) {
+                        console.log('Returned True for Profile Existence');
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [{ name: 'HomeScreen'}],
+                            })
+                        );
+                    } 
+                    // Profile does not exist then go to Register page
+                    else {
+                        console.log('Returned False for Profile Existence');
+                        navigation.dispatch(
+                            CommonActions.reset({
+                                index: 0,
+                                routes: [{ name: 'Register', params: { email: email } }], // Pass email (key)
+                            })
+                        );
+                    }
+                }
+                // Error when finding profile then display error message
+                else {
+                    console.log('Error checking profile existence');
+                    setErrors('Error checking profile existence')
+                }
             }
             else {
-                console.log('Inside responseData - False');
+                console.log('Invalid credentials');
                 setErrors('Invalid credentials');
             }
         } 
