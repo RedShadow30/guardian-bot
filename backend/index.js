@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const register = require('./routes/register');
+const registerProfile = require('./routes/registerProfile');
+const registerUser = require('./routes/registerUser');
 const auth = require('./routes/auth');
 const profile = require('./routes/profile');
 
@@ -15,7 +16,8 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD
     .catch(err => console.log('Could not connect to MongoDB...'));
 
 app.use(express.json());
-app.use('/api/register', register); 
+app.use('/api/registerProfile', registerProfile);
+app.use('/api/registerUser', registerUser); 
 app.use('/api/auth', auth); 
 app.use('/api/profile', profile);
 
