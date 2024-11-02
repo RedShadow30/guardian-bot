@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const Profile = mongoose.model('Profile', new mongoose.Schema({
     fullName: {
-        type: String,
+        type: String, 
         required: true,
         minlength: 5,
         maxlength: 255,
@@ -14,52 +14,52 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             message: 'Name must contain letters only'
         }
     },
-    street: {
-        type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 255,
-        validate: {
-            validator: function(v) {
-                return /^[0-9A-Za-z\s]+$/.test(v); // Regex for letters only
-            },
-            message: 'Street must have numbers and letters only'
-        }
-    },
-    city: {
+    university: {
         type: String,
         required: true,
         minlength: 3,
+        maxlength: 3,
+        validate: {
+            validator: function(v) {
+                return /^[A-Z\s]+$/.test(v); // Regex for capital letters only
+            },
+            message: 'University must be capital letters. Initials only'
+        }
+    },
+    residence: {
+        type: String,
+        required: true,
+        minlength: 6,
         maxlength: 25,
         validate: {
             validator: function(v) {
                 return /^[A-Za-z\s]+$/.test(v); // Regex for letters only
             },
-            message: 'City must contain letters only'
+            message: 'Residence must have letters only'
         }
     },
-    state: {
+    floor: {
         type: String,
         required: true,
-        minlength: 2,
+        minlength: 1,
         maxlength: 2,
-        validate: {
-            validator: function(v) {
-                return /^[A-Z]+$/.test(v); // Regex for capital letters only
-            },
-            message: 'State must contain capital letters only'
-        }
-    },
-    zipCode: {
-        type: String,
-        required: true,
-        minlength: 5,
-        maxlength: 5,
         validate: {
             validator: function(v) {
                 return /^\d+$/.test(v); // Regex for digits only
             },
-            message: 'Zip code must contain numbers only'
+            message: 'Floor # must contain numbers only'
+        }
+    },
+    room: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 3,
+        validate: {
+            validator: function(v) {
+                return /^\d+$/.test(v); // Regex for digits only
+            },
+            message: 'Room # must contain numbers only'
         }
     },
     contacts: {
@@ -82,10 +82,10 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
 function validateProfile(profile) {
     const schema = Joi.object({
         fullName: Joi.string().min(5).max(255).pattern(/^[A-Za-z\s]+$/).required(),
-        street: Joi.string().min(5).max(255).pattern(/^[0-9A-Za-z\s]+$/).required(),
-        city: Joi.string().min(3).max(25).pattern(/^[A-Za-z\s]+$/).required(),
-        state: Joi.string().min(2).max(2).pattern(/^[A-Z]+$/).required(),
-        zipCode: Joi.string().min(5).max(5).pattern(/^\d+$/).required(),
+        university: Joi.string().min(3).max(3).pattern(/^[A-Z\s]+$/).required(),
+        residence: Joi.string().min(6).max(25).pattern(/^[A-Za-z\s]+$/).required(),
+        floor: Joi.string().min(1).max(2).pattern(/^\d+$/).required(),
+        room: Joi.string().min(1).max(3).pattern(/^\d+$/).required(),
         contacts: Joi.array().items(Joi.string().pattern(/^\d+$/)).min(1).max(3).required(), // Needs at least one valid contact
         email: Joi.string().email().required() // Validate email
     });

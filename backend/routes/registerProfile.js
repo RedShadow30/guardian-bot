@@ -28,23 +28,24 @@ router.post('/', async (req, res) => {
     // Create new profile if it doesn't exist
     profile = new Profile({
         fullName: req.body.fullName,
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        zipCode: req.body.zipCode,
+        university: req.body.university,
+        residence: req.body.residence,
+        floor: req.body.floor,
+        room: req.body.room,
         contacts: req.body.contacts,
-        email: user.email // Store user email as a reference
+        email: user.email 
     });
     
     try {
         // Received correctly formatted inputs then create profile
+        await profile.save(); 
         console.log('Created User Profile');
-    
-        await profile.save(); // Save the new profile
-        res.status(201).send(profile); // Respond with the created profile
+        
+        res.status(201).send(profile); 
+        
     }
     catch(error) {
-        return res.status(400).send(error);
+        return res.status(400).send('Error saving profile: ' + error.message); // General error message
     }
 });
 
