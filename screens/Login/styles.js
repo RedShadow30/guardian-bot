@@ -21,6 +21,7 @@ const styles=StyleSheet.create({
         textAlign: 'center',
         fontWeight: '600',
         fontSize: 25,
+        marginBottom: 4,
     },
     loginContainer: {
         borderTopLeftRadius: 30,
@@ -30,14 +31,13 @@ const styles=StyleSheet.create({
     },
     textBubble: {
         flexDirection: 'row',
-        paddingTop: 14,
-        paddingBottom: 3,
-        marginTop: 5,
-        marginBottom: 25,
-        paddingHorizontal: 15,
-        borderWidth: 3,
+        paddingVertical: 10, // Reduced vertical padding
+        paddingTop: 20,
+        paddingHorizontal: 10, // Reduced horizontal padding
+        borderWidth: 2, // Slightly reduced border width
         borderColor: 'green',
         borderRadius: 50,
+        marginBottom: 22,
     },
     textInput: {
         flex: 1,
