@@ -11,7 +11,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return /^[A-Za-z\s]+$/.test(v); // Regex for letters only
             },
-            message: 'Name must contain letters only'
         }
     },
     university: {
@@ -23,7 +22,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return /^[A-Z\s]+$/.test(v); // Regex for capital letters only
             },
-            message: 'University must be capital letters. Initials only'
         }
     },
     residence: {
@@ -35,7 +33,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return /^[A-Za-z\s]+$/.test(v); // Regex for letters only
             },
-            message: 'Residence must have letters only'
         }
     },
     floor: {
@@ -47,7 +44,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return /^\d+$/.test(v); // Regex for digits only
             },
-            message: 'Floor # must contain numbers only'
         }
     },
     room: {
@@ -59,7 +55,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return /^\d+$/.test(v); // Regex for digits only
             },
-            message: 'Room # must contain numbers only'
         }
     },
     contacts: {
@@ -69,7 +64,6 @@ const Profile = mongoose.model('Profile', new mongoose.Schema({
             validator: function(v) {
                 return v.length > 0 && v.every(contact => /^\d+$/.test(contact)); // Ensure at least one contact is provided
             },
-            message: 'At least one valid phone number is required.'
         }
     },
     email: {
