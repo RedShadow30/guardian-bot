@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: 'white', // Set text color to match your theme
+    fontWeight: 'bold',
     marginLeft: 8, // Optional margin
     fontSize: 20, // Font size for the header text
   },
@@ -47,6 +48,16 @@ const styles = StyleSheet.create({
     height: 70, // Set a larger height for the Home button
     borderRadius: 40, // Make it circular
     left: 220, // Center horizontally
+  },
+  drawerStyle: {
+    backgroundColor: 'black',
+    width: 240,
+  },
+  drawerActiveTintColor: 'white',
+  drawerInactiveTintColor: '#b7b7b7',
+  drawerLabelStyle: {
+    fontSize: 18, // Adjust this value for text size
+    fontWeight: 'bold', // Makes the text bold
   },
 });
 

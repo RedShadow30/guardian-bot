@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './screens/Login/Login';
 import Register from './screens/Register/Register'
-import BottomTabs from './screens/Home/BottomTabs';
+import AppNavigator from './screens/Home/Home';
 import RegisterSuccess from './screens/Register/RegisterSuccess';
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
         {/* Define the Registration Success screen in the stack */}
         <Stack.Screen name="RegisterSuccess" component={RegisterSuccess} />
         {/* Define the HomeScreen that contains the BottomTabs */}
-        <Stack.Screen name="HomeScreen" component={BottomTabs} />
+        <Stack.Screen name="HomeScreen" component={AppNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );
