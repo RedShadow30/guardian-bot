@@ -71,7 +71,7 @@ function Register() {
                 const data = await response.json();
                 console.log('Profile created successfully: ', data);
                 // Successful then go to Registration Successful page
-                navigation.navigate('RegisterSuccess')
+                navigation.navigate('RegisterSuccess', email)
             }
             else {
                 // Display error message
