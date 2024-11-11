@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home'; 
 import AI from '../AIScreen/AI';
@@ -43,6 +44,9 @@ const CustomProfileTabBarButton = ({ children, onPress }) => (
 );
 
 function BottomTabs() {
+  const route = useRoute();
+  const email = route.params?.email; // Retrieve email passed from Login
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -107,7 +111,8 @@ function BottomTabs() {
       {/* SOS Screen */}
       <Tab.Screen 
         name="SOS" 
-        component={SOS} 
+        component={SOS}
+        initialParams={{ email }} // Pass email to SOS screen
         options={{
           tabBarButton: (props) => <CustomSOSTabBarButton {...props} />, 
           tabBarLabelStyle: {
@@ -125,7 +130,8 @@ function BottomTabs() {
       {/* Profile Screen */}
       <Tab.Screen 
         name="Profile" 
-        component={Profile} 
+        component={Profile}
+        initialParams={{ email }} // Pass email to Profile screen
         options={{
           tabBarButton: (props) => <CustomProfileTabBarButton {...props} />, 
           headerTitle: () => (
