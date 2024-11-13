@@ -15,6 +15,7 @@ const CrimeItem = ({ crime, isSelected, onPress }) => {
 
 function SOS({ navigation, route }) {
   const crimes = ['Theft', 'Stalking', 'Harassment', 'Break-In', 'Hazard', 'Vandalism', 'Other'];
+  const { email } = route.params;
   const [selectedCrime, setSelectedCrime] = useState(null);
   const [text, setText] = useState('');
   const [inputHeight, setInputHeight] = useState(40); // Set initial input height
@@ -34,7 +35,7 @@ function SOS({ navigation, route }) {
 
   const handleSubmit = () => {
     if (selectedCrime && text.trim()) {
-      navigation.navigate('ReportedPage', { crime: selectedCrime, message: text });
+      navigation.navigate('ReportedPage', { crime: selectedCrime, message: text, email: email });
       
       // Reset the state only if you are not editing
       setSelectedCrime(null);
@@ -49,7 +50,7 @@ function SOS({ navigation, route }) {
     <KeyboardAvoidingView 
       style={styles.container} 
       behavior={'position'} 
-      keyboardVerticalOffset={50}
+      keyboardVerticalOffset={20}
     >
       <ScrollView 
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingBottom: 80 }}
@@ -106,7 +107,7 @@ function SOS({ navigation, route }) {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalText}>
-              In case of an emergency, please dial 911 immediately.
+              In case of an emergency, please call 911 instead.
             </Text>
             <TouchableOpacity onPress={() => setIsModalVisible(false)}>
               <Text style={styles.closeButton}>Understood</Text>

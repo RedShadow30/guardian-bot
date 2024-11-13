@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './Map'; 
@@ -49,6 +50,9 @@ const CustomProfileTabBarButton = ({ children, onPress }) => (
 );
 
 function BottomTabs() {
+  const route = useRoute();
+  const email = route.params?.email; // Retrieve email passed from Login  
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -113,7 +117,8 @@ function BottomTabs() {
       {/* SOS Screen */}
       <Tab.Screen 
         name="SOS" 
-        component={SOS} 
+        component={SOS}
+        initialParams={{ email }} // Pass email to SOS screen
         options={{
           tabBarButton: (props) => <CustomSOSTabBarButton {...props} />,
           headerTitle: () => (
@@ -137,7 +142,8 @@ function BottomTabs() {
       {/* Profile Screen */}
       <Tab.Screen 
         name="Profile" 
-        component={Profile} 
+        component={Profile}
+        initialParams={{ email }} // Pass email to Profile screen
         options={{
           tabBarButton: (props) => <CustomProfileTabBarButton {...props} />, 
           headerTitle: () => (
@@ -195,7 +201,9 @@ function BottomTabs() {
 }
 
 //Hamburger Menu
-function AppNavigator() {
+function AppNavigator({ route }) {
+  const { email } = route.params;
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -208,6 +216,7 @@ function AppNavigator() {
       <Drawer.Screen 
         name="Home" 
         component={BottomTabs} 
+        initialParams={{ email }} // Pass email here
         options={{ 
           headerShown: false,
           drawerIcon: () => <Icon name="home" size={25} color="white" />

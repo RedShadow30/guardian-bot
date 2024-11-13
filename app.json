@@ -13,6 +13,14 @@
     },
     "web": {
       
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow GuardianBot to use your location."
+        }
+      ]
+    ]
   }
 }

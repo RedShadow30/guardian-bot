@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red', // Red color for emergency button
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: -1, // Makes the button float higher in the tab bar
+    marginBottom: -5, // Makes the button float higher in the tab bar
     position: 'absolute', // Position the SOS button absolutely
     bottom: 0, // Position it above the tab bar
     left: '45%', // Center horizontally

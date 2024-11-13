@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
     mainContainer: {
         backgroundColor: 'white',
     },
@@ -12,12 +12,13 @@ const styles=StyleSheet.create({
         fontWeight: '600',
         fontSize: 30,
     },
-    inputLabels:{
+    inputLabels: {
         fontFamily: 'Halvetica',
         color: 'green',
-        textAlign: 'center',
+        textAlign: 'center', // Change to left alignment for labels
         fontWeight: '600',
         fontSize: 20,
+        marginBottom: 5,
     },
     loginContainer: {
         borderTopLeftRadius: 30,
@@ -25,22 +26,44 @@ const styles=StyleSheet.create({
         paddingHorizontal: 35,
         paddingVertical: 10,
     },
+    inputContainer1: {
+        flexDirection: 'row', // Align label and input in a row
+        alignItems: 'center', // Vertically center the label and input
+        marginBottom: 15, // Space between each input group
+        width: 200
+    },
+    inputContainer2: {
+        flexDirection: 'column', // Align label and input in a row
+        alignItems: 'center', // Vertically center the label and input
+        marginBottom: 15,
+    },
     textBubble: {
         flexDirection: 'row',
-        paddingTop: 14,
-        paddingBottom: 3,
-        marginTop: 5,
-        marginBottom: 25,
-        paddingHorizontal: 15,
-        borderWidth: 3,
+        paddingVertical: 5, // Reduced vertical padding
+        paddingHorizontal: 10, // Reduced horizontal padding
+        borderWidth: 2, // Slightly reduced border width
         borderColor: 'green',
         borderRadius: 50,
+        marginBottom: 10,
+        flex: 1,
+    },
+    textSmBubble: {
+        flexDirection: 'row',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderWidth: 2,
+        borderColor: 'green',
+        borderRadius: 50,
+        marginBottom: 10,
+        marginLeft: 6,
+        flex: 1,
     },
     textInput: {
-        flex: 1,
-        marginTop: -10,
-        textAlign:"center",
+        flex: 1, // Make the input field flexible to fill available space
+        textAlign: 'center', // Center text within the input
         fontSize: 20,
+        height: 40, // Set a fixed height for the input
+        paddingVertical: 0, 
     },
     button: {
         alignItems: 'center',

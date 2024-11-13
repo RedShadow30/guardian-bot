@@ -1,5 +1,4 @@
-const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
-import { CommonActions } from '@react-navigation/native';
+const { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import styles from './styles';
@@ -14,10 +13,10 @@ function Register() {
 
     //  Will store the user-entered values
     const [fullName, setFullName] = useState('');
-    const [street, setStreet] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [zipCode, setZipCode] = useState('');
+    const [university, setUniversity] = useState('');
+    const [residence, setResidence] = useState('');
+    const [floor, setFloor] = useState('');
+    const [room, setRoom] = useState('');
     const [contacts, setContacts] = useState(['', '', '']); // 3 phone numbers
     const [email, setEmail] = useState(enteredEmail || ''); // Set initial email
     const [errors, setErrors] = useState(null);
@@ -26,7 +25,7 @@ function Register() {
     const handleRegister = async() => {
         const checkInputs = async() => {
             // Check if any of fields are empty
-            if(!fullName || !street || !city || !state || !zipCode) {
+            if(!fullName || !university || !residence || !floor || !room) {
                 console.log('Please fill in all fields');
                 setErrors('Please fill in all fields');
                 return true; // Indicate errors
@@ -36,7 +35,7 @@ function Register() {
             if(!contacts.some(contact => contact.trim() !== '')) {
                 console.log('Provide at least one phone number');
                 setErrors('Provide at least one phone number');
-                return true; // Indicate errors
+                return true;
             }
 
             return false; // No errors
@@ -51,7 +50,7 @@ function Register() {
         // Profile Creation
         try {
             // API request to backend API to create profile
-            const response = await fetch(`http://IP:PORT/api/registerProfile`, {
+            const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,10 +58,10 @@ function Register() {
                 body: JSON.stringify({
                     fullName: fullName,
                     email: email,
-                    street: street,
-                    city: city,
-                    state: state,
-                    zipCode: zipCode,
+                    university: university,
+                    residence: residence,
+                    floor: floor,
+                    room: room,
                     contacts: contacts.filter(contact => contact.trim() !== ''), // Only include non-empty contacts
                 }),
             });
@@ -72,22 +71,22 @@ function Register() {
                 const data = await response.json();
                 console.log('Profile created successfully: ', data);
                 // Successful then go to Registration Successful page
-                navigation.navigate('RegisterSuccess')
+                navigation.navigate('RegisterSuccess', email)
             }
             else {
-                console.log('Error in response');
                 // Display error message
-                setErrors('Error: Fill out correctly');
+                const errorRes = await response.json();
+                console.log(errorRes);
             }
         } 
         // Invalid then display error message
         catch(error) {
             // Update error state
-            setErrors('Error: ' + error.message);
+            setErrors('Error: Invalid input');
             console.log('Error registering profile: ' + error.message);
             
         }
-        console.log(email, street, city, state, contacts);
+        console.log(email, university, residence, floor, room, contacts);
     };
 
     return (
@@ -106,87 +105,99 @@ function Register() {
                 {/* Text Inputs for Profile */}
                 <View style={styles.loginContainer}>
                     {/* Full Name */}
-                    <Text style={styles.inputLabels}>Full Name: </Text>
-                    <View style={styles.textBubble}>
-                        <TextInput 
-                            placeholder="Type Full Name here"
-                            onChangeText={ text => setFullName(text) }
-                            value={fullName}
-                            autoCorrect={false}
-                            style={styles.textInput}
-                        />
+                    <View style={styles.inputContainer2}>
+                        <Text style={styles.inputLabels}>Full Name: </Text>
+                        <View style={styles.textBubble}>
+                            <TextInput 
+                                placeholder="Type Full Name here"
+                                onChangeText={ text => setFullName(text) }
+                                value={fullName}
+                                autoCorrect={false}
+                                style={styles.textInput}
+                            />
+                        </View>
                     </View>
 
-                    {/* Street */}
-                    <Text  style={styles.inputLabels}>Street: </Text>
-                    <View style={styles.textBubble}>
-                        <TextInput 
-                            placeholder="Type Street here"
-                            onChangeText={ text => setStreet(text) }
-                            value={street}
-                            autoCorrect={false} 
-                            style={styles.textInput}
-                        />
+                    {/* University */}
+                    <View style={styles.inputContainer2}>
+                        <Text  style={styles.inputLabels}>University: </Text>
+                        <View style={styles.textBubble}>
+                            <TextInput 
+                                placeholder="e.g. UNT"
+                                onChangeText={ text => setUniversity(text) }
+                                value={university}
+                                autoCorrect={false} 
+                                style={styles.textInput}
+                            />
+                        </View>
                     </View>
 
-                    {/* City */}
-                    <Text style={styles.inputLabels}>City: </Text>
-                    <View style={styles.textBubble}>
-                        <TextInput
-                            placeholder="Type City here"
-                            onChangeText={text => setCity(text)}
-                            value={city}
-                            autoCorrect={false}
-                            style={styles.textInput}
-                        />
+                    {/* Residence */}
+                    <View style={styles.inputContainer2}>
+                        <Text style={styles.inputLabels}>Residence: </Text>
+                        <View style={styles.textBubble}>
+                            <TextInput
+                                placeholder="e.g. Legends Hall"
+                                onChangeText={text => setResidence(text)}
+                                value={residence}
+                                autoCorrect={false}
+                                style={styles.textInput}
+                            />
+                        </View>
                     </View>
 
-                    {/* State */}
-                    <Text  style={styles.inputLabels}>State: </Text>
-                    <View style={styles.textBubble}>
-                        <TextInput 
-                            placeholder="Type State here"
-                            onChangeText={ text => setState(text) }
-                            value={state}
-                            autoCorrect={false} 
-                            style={styles.textInput}
-                            maxLength={2}
-                        />
+                    {/* Floor */}
+                    <View style={styles.inputContainer1}>
+                        <Text  style={styles.inputLabels}>Floor: </Text>
+                        <View style={styles.textSmBubble}>
+                            <TextInput 
+                                placeholder="Floor # "
+                                onChangeText={ text => setFloor(text) }
+                                value={floor}
+                                autoCorrect={false} 
+                                style={styles.textInput}
+                                maxLength={2}
+                            />
+                        </View>
                     </View>
 
-                    {/* Zip Code */}
-                    <Text  style={styles.inputLabels}>Zip Code: </Text>
-                    <View style={styles.textBubble}>
-                        <TextInput 
-                            placeholder="Type Zip Code here"
-                            onChangeText={ text => setZipCode(text) }
-                            value={zipCode}
-                            autoCorrect={false} 
-                            style={styles.textInput}
-                            maxLength={5}
-                        />
+                    {/* Room */}
+                    <View style={styles.inputContainer1}>
+                        <Text  style={styles.inputLabels}>Room: </Text>
+                        <View style={styles.textSmBubble}>
+                            <TextInput 
+                                placeholder="Room #"
+                                onChangeText={ text => setRoom(text) }
+                                value={room}
+                                autoCorrect={false} 
+                                style={styles.textInput}
+                                maxLength={3}
+                            />
+                        </View>
                     </View>
 
                     {/* Contacts */}
-                    <Text style={styles.inputLabels}>Emergency Contacts: </Text>
-                    {/* Use map function to render a TextInput for each contact */}
-                    {contacts.map((contact, index) => (
-                        <View key={index} style={styles.textBubble}>
-                            <TextInput
-                                placeholder={`Phone Number ${index + 1}`} // To count the Phone Number 1 to 3
-                                onChangeText={text => {
-                                    // Create a new contacts array with the updated contact
-                                    const newContacts = [...contacts];
-                                    newContacts[index] = text;
-                                    setContacts(newContacts);
-                                }}
-                                value={contact}
-                                autoCorrect={false}
-                                style={styles.textInput}
-                                maxLength={10}
-                            />
-                        </View>
-                    ))}
+                    <View style={styles.inputContainer2}>
+                        <Text style={styles.inputLabels}>Emergency Contacts: </Text>
+                        {/* Use map function to render a TextInput for each contact */}
+                        {contacts.map((contact, index) => (
+                            <View key={index} style={styles.textBubble}>
+                                <TextInput
+                                    placeholder={`Phone Number ${index + 1}`} // To count the Phone Number 1 to 3
+                                    onChangeText={text => {
+                                        // Create a new contacts array with the updated contact
+                                        const newContacts = [...contacts];
+                                        newContacts[index] = text;
+                                        setContacts(newContacts);
+                                    }}
+                                    value={contact}
+                                    autoCorrect={false}
+                                    style={styles.textInput}
+                                    maxLength={10}
+                                />
+                            </View>
+                        ))}
+                    </View>
                 </View>
 
                 {/* Button */}
