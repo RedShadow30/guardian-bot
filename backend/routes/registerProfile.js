@@ -55,9 +55,9 @@ router.get('/', async(req, res) => {
 
     const { email } = req.query;
 
-    // request body did not send email then return error because need email to find profile
+    // Fetch request must send email
     if (!email) {
-        console.log('Did not receive user email in request body');
+        console.log('Did not receive user email');
         return res.status(400).json({ message: 'Email is required'});
     }
 
@@ -77,7 +77,7 @@ router.get('/', async(req, res) => {
     }
     catch(error) {
         console.error('Error checking profile existence:', error);
-        return res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
