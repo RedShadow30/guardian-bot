@@ -51,7 +51,7 @@ const CustomProfileTabBarButton = ({ children, onPress }) => (
 
 function BottomTabs() {
   const route = useRoute();
-  const email = route.params?.email; // Retrieve email passed from Login
+  const email = route.params?.email; // Retrieve email passed from Login  
 
   return (
     <Tab.Navigator
@@ -201,7 +201,9 @@ function BottomTabs() {
 }
 
 //Hamburger Menu
-function AppNavigator() {
+function AppNavigator({ route }) {
+  const { email } = route.params;
+
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -214,6 +216,7 @@ function AppNavigator() {
       <Drawer.Screen 
         name="Home" 
         component={BottomTabs} 
+        initialParams={{ email }} // Pass email here
         options={{ 
           headerShown: false,
           drawerIcon: () => <Icon name="home" size={25} color="white" />

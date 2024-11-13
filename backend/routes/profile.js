@@ -14,13 +14,13 @@ router.get('/', async(req, res) => {
         
         // Find a user with this email
         const user = await User.findOne({ email: email });
-        console.log('Found user');
         
         // Return error if not found
         if(!user) {
             console.log('User not found');
             return res.status(404).json({ error: 'User not found' });
         }
+        console.log('Found user');
 
         // Find the profile of user with given email
         const profile = await Profile.findOne({ email: email });
