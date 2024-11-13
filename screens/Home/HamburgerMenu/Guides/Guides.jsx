@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
+import ActiveThreat from './ActiveThreat/ActiveThreat';
 
 const Guides = ({ navigation }) => {
+  const [selectedGuide, setSelectedGuide] = useState(null);
+
   // Set up header options
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -17,10 +20,17 @@ const Guides = ({ navigation }) => {
         backgroundColor: 'black',
       },
       headerTintColor: 'white',
+      // Conditionally render the back button or drawer button
       headerLeft: () => (
-        <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{ marginLeft: 15 }}>
-          <Icon name="bars" size={25} color="white" />
-        </TouchableOpacity>
+        selectedGuide === 'ActiveThreat' ? (
+          <TouchableOpacity onPress={() => setSelectedGuide(null)} style={{ marginLeft: 15 }}>
+            <Icon name="arrow-left" size={25} color="white" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{ marginLeft: 15 }}>
+            <Icon name="bars" size={25} color="white" />
+          </TouchableOpacity>
+        )
       ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('AI')} style={{ marginRight: 15 }}>
@@ -28,7 +38,7 @@ const Guides = ({ navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, selectedGuide]);
 
   const guideOptions = [
     'Active Threat',
@@ -45,9 +55,17 @@ const Guides = ({ navigation }) => {
   ];
 
   const handleOptionPress = (option) => {
-    // Handle what happens when an option is pressed, such as navigation or displaying more info
-    console.log(`${option} selected`);
+    if (option === 'Active Threat') {
+      setSelectedGuide('ActiveThreat');
+    } else {
+      console.log(`${option} selected`);
+    }
   };
+
+  // If "Active Threat" is selected, render the ActiveThreat page
+  if (selectedGuide === 'ActiveThreat') {
+    return <ActiveThreat />;
+  }
 
   return (
     <ScrollView style={styles.container}>

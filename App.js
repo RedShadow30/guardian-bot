@@ -5,6 +5,7 @@ import Login from './screens/Login/Login';
 import Register from './screens/Register/Register'
 import AppNavigator from './screens/Home/Home';
 import RegisterSuccess from './screens/Register/RegisterSuccess';
+import ActiveThreat from './screens/Home/HamburgerMenu/Guides/ActiveThreat/ActiveThreat';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
