@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import GradientButton from '../../../components/GradientButton'; // Adjust the import based on your file structure
+import useLocation from '../../../components/LocationHook';
 import styles from './styles';
 
 const ReportedPage = ({ route, navigation }) => {
@@ -8,6 +9,8 @@ const ReportedPage = ({ route, navigation }) => {
   const { email } = route.params;
   const [error, setError] = useState(null);
   const [ profileInfo, setProfileInfo ] = useState({});
+  // Get user permission to get Location and store if granted
+  const {latitude, longitude, errMsg} = useLocation();
 
   useEffect(() => {
     const fetchProfile = async() => {
@@ -97,7 +100,8 @@ const ReportedPage = ({ route, navigation }) => {
 
       <View style={styles.detailBox}>
         <Text style={styles.label}>Location:</Text>
-        <Text style={styles.value}>Placeholder Location</Text>
+        <Text style={styles.value}>Latitude: {latitude}</Text>
+        <Text style={styles.value}>Longitude: {longitude}</Text>
       </View>
 
       {/* Change button to navigate to Thank You page */}
