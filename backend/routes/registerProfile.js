@@ -28,23 +28,24 @@ router.post('/', async (req, res) => {
     // Create new profile if it doesn't exist
     profile = new Profile({
         fullName: req.body.fullName,
-        street: req.body.street,
-        city: req.body.city,
-        state: req.body.state,
-        zipCode: req.body.zipCode,
+        university: req.body.university,
+        residence: req.body.residence,
+        floor: req.body.floor,
+        room: req.body.room,
         contacts: req.body.contacts,
-        email: user.email // Store user email as a reference
+        email: user.email 
     });
     
     try {
         // Received correctly formatted inputs then create profile
+        await profile.save(); 
         console.log('Created User Profile');
-    
-        await profile.save(); // Save the new profile
-        res.status(201).send(profile); // Respond with the created profile
+        
+        res.status(201).send(profile); 
+        
     }
     catch(error) {
-        return res.status(400).send(error);
+        return res.status(400).send('Error saving profile: ' + error.message); // General error message
     }
 });
 
@@ -54,9 +55,9 @@ router.get('/', async(req, res) => {
 
     const { email } = req.query;
 
-    // request body did not send email then return error because need email to find profile
+    // Fetch request must send email
     if (!email) {
-        console.log('Did not receive user email in request body');
+        console.log('Did not receive user email');
         return res.status(400).json({ message: 'Email is required'});
     }
 
@@ -76,7 +77,7 @@ router.get('/', async(req, res) => {
     }
     catch(error) {
         console.error('Error checking profile existence:', error);
-        return res.status(500).json({ message: 'Server error' });
+        return res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
