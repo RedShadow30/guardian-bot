@@ -1,17 +1,23 @@
 import React from 'react';
 import { useRoute } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from './Home'; 
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Home from './Map'; 
 import AI from '../AIScreen/AI';
 import SOS from '../SOSScreen/SOS'; 
 import Profile from '../ProfileScreen/Profile';
 import ReportedPage from '../SOSScreen/ReportedScreen/ReportedPage';
 import ThankYouPage from '../SOSScreen/ReportedScreen/ThankYouScreen/ThankYouScreen';
+import About from './HamburgerMenu/About/About'; 
+import Guides from './HamburgerMenu/Guides/Guides';
+import Reports from './HamburgerMenu/Reports/Reports';
+import Resources from './HamburgerMenu/Resources/Resources';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { TouchableOpacity, View, Text } from 'react-native';
 import styles from './styles'; 
 
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 // Custom button for the Home tab
 const CustomHomeTabBarButton = ({ children, onPress }) => (
@@ -83,7 +89,7 @@ function BottomTabs() {
       <Tab.Screen 
   name="Home" 
   component={Home} 
-  options={({ navigation }) => ({ // Pass navigation here
+  options={({ navigation }) => ({
     tabBarButton: (props) => <CustomHomeTabBarButton {...props} />, 
     headerTitle: () => (
       <View style={styles.headerContainer}>
@@ -96,7 +102,7 @@ function BottomTabs() {
     },
     headerTintColor: 'white', 
     headerLeft: () => (
-      <TouchableOpacity onPress={() => alert('Hamburger menu pressed!')} style={{ marginLeft: 15 }}>
+      <TouchableOpacity onPress={() => navigation.toggleDrawer()} style={{ marginLeft: 15 }}>
         <Icon name="bars" size={25} color="white" />
       </TouchableOpacity>
     ),
@@ -114,7 +120,13 @@ function BottomTabs() {
         component={SOS}
         initialParams={{ email }} // Pass email to SOS screen
         options={{
-          tabBarButton: (props) => <CustomSOSTabBarButton {...props} />, 
+          tabBarButton: (props) => <CustomSOSTabBarButton {...props} />,
+          headerTitle: () => (
+            <View style={styles.headerContainer}>
+              <Icon name="exclamation-circle" size={25} color="white" />
+              <Text style={styles.headerText}>SOS</Text>
+            </View>
+          ), 
           tabBarLabelStyle: {
             fontSize: 25,
             fontWeight: 'bold',
@@ -188,4 +200,55 @@ function BottomTabs() {
   );
 }
 
-export default BottomTabs;
+//Hamburger Menu
+function AppNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        drawerStyle: styles.drawerStyle,
+        drawerActiveTintColor: styles.drawerActiveTintColor,
+        drawerInactiveTintColor: styles.drawerInactiveTintColor,
+        drawerLabelStyle: styles.drawerLabelStyle,
+      }}
+    >
+      <Drawer.Screen 
+        name="Home" 
+        component={BottomTabs} 
+        options={{ 
+          headerShown: false,
+          drawerIcon: () => <Icon name="home" size={25} color="white" />
+        }} 
+      />
+      <Drawer.Screen 
+        name="Reports" 
+        component={Reports} 
+        options={{
+          drawerIcon: () => <Icon name="file-text" size={25} color="white" />
+        }} 
+      />
+      <Drawer.Screen 
+        name="Guides" 
+        component={Guides} 
+        options={{
+          drawerIcon: () => <Icon name="book" size={25} color="white" />
+        }} 
+      />
+      <Drawer.Screen 
+        name="Resources" 
+        component={Resources} 
+        options={{
+          drawerIcon: () => <Icon name="link" size={25} color="white" />
+        }} 
+      />
+      <Drawer.Screen 
+        name="About" 
+        component={About} 
+        options={{
+          drawerIcon: () => <Icon name="info-circle" size={25} color="white" />
+        }} 
+      />
+    </Drawer.Navigator>
+  );
+}
+
+export default AppNavigator;

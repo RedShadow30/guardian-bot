@@ -68,12 +68,13 @@ const ReportedPage = ({ route, navigation }) => {
         </TouchableOpacity>
       ),
     });
-  }, [navigation]);
+  }, [navigation, crime, message]);
 
   const handleThankYouPage = () => {
-    navigation.navigate('ThankYouPage'); // Navigate to Thank You page
-  };
-
+    // Navigate to Thank You page and ensure previous data is cleared
+    navigation.navigate('ThankYouPage', { resetSOS: true });
+  };   
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Report Details</Text>
