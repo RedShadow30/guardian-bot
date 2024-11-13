@@ -50,7 +50,7 @@ function Register() {
         // Profile Creation
         try {
             // API request to backend API to create profile
-            const response = await fetch(`http://IP:PORT/api/registerProfile`, {
+            const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
