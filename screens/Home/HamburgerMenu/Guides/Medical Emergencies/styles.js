@@ -76,12 +76,6 @@ const styles = StyleSheet.create({
     height: 200,
     marginVertical: 10,
   },
-  pdfLink: {
-    color: '#007AFF', // Bright blue for visibility
-    textDecorationLine: 'underline', // Underline to indicate a hyperlink
-    fontWeight: 'bold', // Bold for emphasis
-    fontSize: 16, // Slightly larger font size
-  },
 });
 
 export default styles;

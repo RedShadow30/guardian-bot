@@ -3,27 +3,27 @@ import { View, Text, Image, ScrollView, TouchableOpacity, Linking } from 'react-
 import { WebView } from 'react-native-webview';
 import styles from './styles';
 
-const FireSafety = () => {
+const NaturalGasLeak = () => {
   // Function to open PDF link
   const openPdf = () => {
-    Linking.openURL('https://riskmanagement.unt.edu/emergency/_images/fire_0.pdf'); // Open the PDF link in browser
+    Linking.openURL('https://riskmanagement.unt.edu/emergency/_images/gas_leak_0.pdf'); // Open the PDF link in browser
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Image Section */}
       <Image 
-        source={require('../../../../../assets/FireSafety.png')} 
+        source={require('../../../../../assets/NaturalGasLeak.png')}
         style={styles.image} 
       />
 
       {/* Guide Title */}
-      <Text style={styles.title}>Fire Safety Guide</Text>
+      <Text style={styles.title}>Natural Gas Leak Response Guide</Text>
 
       {/* YouTube Video Section */}
       <View style={styles.videoContainer}>
         <WebView
-          source={{ uri: 'https://www.youtube.com/embed/zBKDxGeK5r0' }} // Replace with a valid video URL
+          source={{ uri: 'https://www.youtube.com/embed/R3R4pi86hjY' }}
           style={styles.video}
           allowsFullscreenVideo
         />
@@ -31,44 +31,38 @@ const FireSafety = () => {
 
       {/* Information Section */}
       <Text style={styles.description}>
-      Fire emergencies require quick thinking and calm actions. Follow these steps to ensure your safety and the safety of others during a fire.
+      A natural gas leak can lead to fires, explosions, or severe health risks due to gas inhalation. Knowing how to detect and respond to a gas leak is crucial for your safety and those around you.
       </Text>
 
       {/* Steps Section */}
       <View style={styles.stepsContainer}>
-        <Text style={styles.stepTitle}>1. Stay Calm and Alert Others</Text>
+        <Text style={styles.stepTitle}>1. Recognize the Signs of a Leak</Text>
         <Text style={styles.stepText}>
-          Alert everyone in the building by shouting "Fire!" or using an alarm system. Avoid panicking to ensure an orderly evacuation.
+          - Smell: Natural gas has a distinct sulfur-like "rotten egg" odor.
+          - Sound: Listen for a hissing or whistling noise near gas appliances or pipelines.
+          - Sight: Look for dead vegetation, bubbles in water, or a dust cloud near pipelines.
         </Text>
 
         <Text style={styles.stepTitle}>2. Evacuate Immediately</Text>
         <Text style={styles.stepText}>
-          - Use the nearest fire exit. Avoid elevators.
-          - Crawl low to the ground if there’s smoke to avoid inhaling toxic fumes.
-          - If possible, close doors behind you to slow the spread of fire.
+          Leave the building or area without turning off lights, using electronics, or creating any sparks. Avoid open flames or smoking.
         </Text>
 
         <Text style={styles.stepTitle}>3. Call Emergency Services</Text>
         <Text style={styles.stepText}>
-          Once safely outside, call 911 or your local fire department. Provide the exact location of the fire and any additional details.
+          Once you are in a safe location, call 911 or the local gas company to report the leak. Do not return until authorities declare it safe.
         </Text>
 
-        <Text style={styles.stepTitle}>4. If Trapped Inside</Text>
+        <Text style={styles.stepTitle}>4. Do Not Attempt Repairs</Text>
         <Text style={styles.stepText}>
-          - Seal doors and vents with wet towels or clothing to block smoke.
-          - Signal for help using a flashlight or waving a cloth at a window.
-        </Text>
-
-        <Text style={styles.stepTitle}>5. Use a Fire Extinguisher If Safe</Text>
-        <Text style={styles.stepText}>
-          Only attempt to extinguish small fires if you’ve been trained and can do so safely. Always keep a clear exit behind you.
+          Leave all repairs to trained professionals. Avoid entering the area until it has been inspected and cleared.
         </Text>
       </View>
 
       {/* PDF Link Section */}
       <View style={styles.pdfContainer}>
           <TouchableOpacity onPress={openPdf}>
-            <Text style={styles.pdfLink}>- Fire Safety PDF Guide</Text>
+            <Text style={styles.pdfLink}>- Natural Gas Leak PDF Guide</Text>
           </TouchableOpacity>
         </View>
 
@@ -83,4 +77,4 @@ const FireSafety = () => {
   );
 };
 
-export default FireSafety;
+export default NaturalGasLeak;

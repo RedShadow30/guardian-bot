@@ -1,9 +1,13 @@
 import React from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image,TouchableOpacity, ScrollView, Linking } from 'react-native';
 import { WebView } from 'react-native-webview';
 import styles from './styles';
 
 const ActiveThreat = () => {
+  const openPdf = () => {
+    Linking.openURL('https://mediacdn.guidebook.com/upload/71840/x3RnF618nwAUA7vvzerj7GK41bgvPTJcaUmq.pdf'); // Open the PDF link in browser
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Image Section */}
@@ -40,6 +44,13 @@ const ActiveThreat = () => {
         <Text style={styles.stepTitle}>3. Fight</Text>
         <Text style={styles.stepText}>As a last resort, and only if your life is in immediate danger, attempt to disrupt or incapacitate the threat.</Text>
       </View>
+
+      {/* PDF Link Section */}
+      <View style={styles.pdfContainer}>
+          <TouchableOpacity onPress={openPdf}>
+            <Text style={styles.pdfLink}>- Active Threat PDF Guide</Text>
+          </TouchableOpacity>
+        </View>
 
       {/* Resources */}
       <View style={styles.resourcesContainer}>
