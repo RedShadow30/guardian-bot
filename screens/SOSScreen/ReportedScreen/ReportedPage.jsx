@@ -1,15 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import GradientButton from '../../../components/GradientButton'; // Adjust the import based on your file structure
+import useLocation from '../../../components/LocationHook';
 import styles from './styles';
 
 const ReportedPage = ({ route, navigation }) => {
   const { crime, message } = route.params; // Receive crime and message from SOS
+  const { email } = route.params;
+  const [error, setError] = useState(null);
+  const [ profileInfo, setProfileInfo ] = useState({});
+  // Get user permission to get Location and store if granted
+  const {latitude, longitude, errMsg} = useLocation();
+
+  useEffect(() => {
+    const fetchProfile = async() => {
+      try {
+        // Request to backend to receive backend info
+        const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        console.log('GET Request for Profile sent');
+
+        const responseText = await response.text();
+        
+        // Received profile then store JSON format for easier info accessing
+        if(response.ok) {
+          console.log('Received profile info');
+          const jsonData = JSON.parse(responseText);
+          setProfileInfo(jsonData);
+        }
+        else {
+          throw new Error(responseText);
+        }
+      }
+      catch(err) {
+        console.error(err);
+        setError(err.message);
+      }
+    };
+
+    // Call the function to get profile info
+    fetchProfile();
+  }, [email]);      // Update email if it changed
 
   // Edit button function
   const handleEdit = () => {
     navigation.navigate('SOS', { crime, message }); // Pass existing data back
   };
+
+  if(error) {
+    return (
+      <View style={styles.title}>
+        <Text>Error: {error}</Text>
+      </View>
+    );
+  }
 
   // Set header options to include the Edit button
   React.useLayoutEffect(() => {
@@ -43,17 +91,18 @@ const ReportedPage = ({ route, navigation }) => {
 
       <View style={styles.detailBox}>
         <Text style={styles.label}>University:</Text>
-        <Text style={styles.value}>Placeholder University</Text>
+        <Text style={styles.value}>{profileInfo.university}</Text>
       </View>
 
       <View style={styles.detailBox}>
         <Text style={styles.label}>Full Name:</Text>
-        <Text style={styles.value}>Placeholder EUID</Text>
+        <Text style={styles.value}>{profileInfo.fullName}</Text>
       </View>
 
       <View style={styles.detailBox}>
         <Text style={styles.label}>Location:</Text>
-        <Text style={styles.value}>Placeholder Location</Text>
+        <Text style={styles.value}>Latitude: {latitude}</Text>
+        <Text style={styles.value}>Longitude: {longitude}</Text>
       </View>
 
       {/* Change button to navigate to Thank You page */}
