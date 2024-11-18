@@ -32,7 +32,7 @@ function Login() {
             console.log('Authenticating...');
 
             // API request to backend API to authenticate user
-            const response = await fetch(`${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/auth`, {
+            const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ function Login() {
                 console.log('Login successful: ', data);
 
                 // Check for user profile existence before registering a profile
-                const profileResponse = await fetch(`${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile?email=${email}`)
+                const profileResponse = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile?email=${email}`)
                 
                 // Check returned response to see if profile exists with exists property
                 if(profileResponse.ok) {

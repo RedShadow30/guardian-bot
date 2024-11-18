@@ -16,7 +16,7 @@ const ReportedPage = ({ route, navigation }) => {
     const fetchProfile = async() => {
       try {
         // Request to backend to receive backend info
-        const response = await fetch(`${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`, {
+        const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
