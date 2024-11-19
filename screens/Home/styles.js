@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'black', // Match with tab bar background
     justifyContent: 'center',
     alignItems: 'center',
-    left: '50%', // Center horizontally
+    left: '5%', // Center horizontally
 
   },
   profileButton: {
