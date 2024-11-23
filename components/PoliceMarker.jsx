@@ -1,6 +1,6 @@
 import React from 'react'
 import { Marker } from 'react-native-maps'
-import { View, Text } from 'react-native'
+import { Image } from 'react-native'
 
 const PoliceMarker = ({ station }) => {    
     return (
@@ -11,8 +11,11 @@ const PoliceMarker = ({ station }) => {
                 longitude: station.longitude,
             }}
             title={station.title}
-            description='Police station' 
+            description={station.address} 
         >
+            <Image source={require('../assets/icons/police_icon.png')}
+                style={{width: 45, height: 45}}
+            />
         </Marker>
     )
 }

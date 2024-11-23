@@ -1,74 +1,51 @@
 [
     {
       "id": 1,
-      "latitude": 32.7944,
-      "longitude": -96.7653,
-      "title": "Dallas Police Department - Northeast Division"
-    },
-    {
-      "id": 2,
-      "latitude": 32.8481,
-      "longitude": -96.7614,
+      "latitude": 32.854446,
+      "longitude": -96.880140,
+      "address": "9801 Harry Hines Blvd, Dallas, TX 75220",
       "title": "Dallas Police Department - Northwest Division"
     },
     {
-      "id": 3,
-      "latitude": 32.7763,
-      "longitude": -96.8592,
+      "id": 2,
+      "latitude": 32.720270,
+      "longitude": -96.888802,
+      "address": "4230 W Illinois Ave, Dallas, TX 75211",
       "title": "Dallas Police Department - Southwest Division"
     },
     {
-      "id": 4,
-      "latitude": 32.7145,
-      "longitude": -96.7832,
-      "title": "Dallas Police Department - Southeast Division"
+      "id": 3,
+      "latitude": 32.723221,
+      "longitude": -96.701911,
+      "address": "725 N Jim Miller Rd, Dallas, TX 75217",
+      "title": "Dallas Police Department"
     },
     {
-      "id": 5,
-      "latitude": 33.2148,
-      "longitude": -97.1331,
+      "id": 4,
+      "latitude": 33.21495,
+      "longitude": -97.1237,
+      "address": "601 E Hickory St, Denton, TX 76205",
       "title": "Denton Police Department"
     },
     {
-      "id": 6,
-      "latitude": 33.2253,
-      "longitude": -97.1459,
-      "title": "Denton Police Department - North Station"
-    },
-    {
-      "id": 7,
-      "latitude": 33.1934,
-      "longitude": -97.1142,
-      "title": "Denton Police Department - South Station"
-    },
-    {
-      "id": 8,
-      "latitude": 32.7554,
-      "longitude": -97.3324,
-      "title": "Fort Worth Police Department"
-    },
-    {
-      "id": 9,
-      "latitude": 32.8142,
-      "longitude": -97.3439,
+      "id": 5,
+      "latitude": 32.8999202,
+      "longitude": -97.307882,
+      "address": "8755 N Riverside Dr, Fort Worth, TX 76244",
       "title": "Fort Worth Police Department - North Division"
     },
     {
-      "id": 10,
-      "latitude": 32.6945,
-      "longitude": -97.3112,
+      "id": 6,
+      "latitude": 32.689849,
+      "longitude": -97.362,
+      "address": "3128 W Bolt St, Fort Worth, TX 76110",
       "title": "Fort Worth Police Department - South Division"
     },
     {
-      "id": 11,
-      "latitude": 32.7451,
-      "longitude": -97.3645,
-      "title": "Fort Worth Police Department - East Division"
-    },
-    {
-      "id": 12,
-      "latitude": 32.7863,
-      "longitude": -97.3958,
+      "id": 7,
+      "latitude": 32.72,
+      "longitude": -97.4432,
+      "address": "3532 Joyce Dr, Fort Worth, TX 76116",
       "title": "Fort Worth Police Department - West Division"
     }
   ]

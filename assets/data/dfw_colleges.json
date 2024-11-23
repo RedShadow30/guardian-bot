@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "latitude": 33.210743,
+        "longitude": -97.147447,
+        "address": "1155 Union Cir, Denton, TX 76205",
+        "title": "University of North Texas (UNT)"
+    },
+    {
+        "id": 2,
+        "latitude": 32.841391,
+        "longitude": -96.784173,
+        "address": "3200 Binkley Ave, Dallas, TX 75205",
+        "title": "Southern Methodist University (SMU)"
+    },
+    {
+        "id": 3,
+        "latitude": 32.71,
+        "longitude": -97.365,
+        "address": "2800 S University Dr, Fort Worth, TX 76109",
+        "title": "Texas Christian University (TCU)"
+    },
+    {
+        "id": 4,
+        "latitude": 32.9858,
+        "longitude": -96.7501,
+        "address": "800 W Campbell Rd, Richardson, TX 75080",
+        "title": "University of Texas at Dallas (UTD)"
+    },
+    {
+        "id": 5,
+        "latitude": 30.606605,
+        "longitude": -96.356925,
+        "address": "400 Bizzell St, College Station, TX 77840",
+        "title": "Texas A&M University (TAMU)"
+    },
+    {
+        "id": 6,
+        "latitude": 33.253665,
+        "longitude": -97.152421,
+        "address": "3940 N Elm St, Denton, TX 76207",
+        "title": "UNT Discovery Park"
+    },
+    {
+        "id": 7,
+        "latitude": 33.186528,
+        "longitude": -96.804605,
+        "address": "12995 Preston Rd, Frisco, TX 75033",
+        "title": "UNT at Frisco"
+    }
+]
