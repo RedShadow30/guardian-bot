@@ -10,6 +10,8 @@ router.get('/', async(req, res) => {
     try {
         // Store the email sent through fetch request from Profile.jsx
         const email = req.query.email;
+        console.log('Profile GET request: ' + req.query);
+        
         console.log('Searching for email: ', email);
         
         // Find a user with this email
@@ -31,7 +33,7 @@ router.get('/', async(req, res) => {
 
         // If profile found, return in JSON format
         console.log('Profile found:', profile);
-        res.json(profile);
+        res.status(200).send(profile);
     }
     catch(err) {
         console.log(err);

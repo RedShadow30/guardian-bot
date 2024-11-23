@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#EAF0F4', // Soft blue background for a calm vibe
-    marginTop: 40,
+    // marginTop: 40,
   },
   sectionContainer: {
     marginBottom: 25,

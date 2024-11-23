@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import GradientButton from '../../../components/GradientButton'; // Adjust the import based on your file structure
 import useLocation from '../../../components/LocationHook';
+import axios from 'axios';
 import styles from './styles';
 
 const ReportedPage = ({ route, navigation }) => {
@@ -10,30 +11,18 @@ const ReportedPage = ({ route, navigation }) => {
   const [error, setError] = useState(null);
   const [ profileInfo, setProfileInfo ] = useState({});
   // Get user permission to get Location and store if granted
-  const {latitude, longitude, errMsg} = useLocation();
+  const {latitude, longitude, street, district, subregion, errMsg} = useLocation();
 
   useEffect(() => {
     const fetchProfile = async() => {
       try {
         // Request to backend to receive backend info
-        const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
+        const response = await axios.get(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`);
         console.log('GET Request for Profile sent');
 
-        const responseText = await response.text();
-        
         // Received profile then store JSON format for easier info accessing
-        if(response.ok) {
-          console.log('Received profile info');
-          const jsonData = JSON.parse(responseText);
-          setProfileInfo(jsonData);
-        }
-        else {
-          throw new Error(responseText);
+        if(response.status == 200) {
+          setProfileInfo(response.data);
         }
       }
       catch(err) {
@@ -103,6 +92,9 @@ const ReportedPage = ({ route, navigation }) => {
         <Text style={styles.label}>Location:</Text>
         <Text style={styles.value}>Latitude: {latitude}</Text>
         <Text style={styles.value}>Longitude: {longitude}</Text>
+        <Text style={styles.value}>Street: {street}</Text>
+        <Text style={styles.value}>District: {district}</Text>
+        <Text style={styles.value}>Subregion: {subregion}</Text>
       </View>
 
       {/* Change button to navigate to Thank You page */}

@@ -80,7 +80,7 @@ function validateProfile(profile) {
         residence: Joi.string().min(6).max(25).pattern(/^[A-Za-z\s]+$/).required(),
         floor: Joi.string().min(1).max(2).pattern(/^\d+$/).required(),
         room: Joi.string().min(1).max(3).pattern(/^\d+$/).required(),
-        contacts: Joi.array().items(Joi.string().pattern(/^\d+$/)).min(1).max(3).required(), // Needs at least one valid contact
+        contacts: Joi.array().items(Joi.string().pattern(/^\d+$/).min(10).max(10)).min(1).max(3).required(), // Needs at least one valid contact
         email: Joi.string().email().required() // Validate email
     });
 
