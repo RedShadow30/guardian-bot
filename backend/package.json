@@ -17,6 +17,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^6.9.0",
     "mongoose": "^8.8.2",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "ollama": "^0.5.10"
   }
 }
