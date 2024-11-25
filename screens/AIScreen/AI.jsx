@@ -26,9 +26,10 @@ function AI() {
     }
 
     // Send the message to backend
-    console.log(inputText);
+    console.log('Frontend sending: ' + inputText);
     try {
-      const response = await axios.post('http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/chat', {
+      // Send backend request in a different port
+      const response = await axios.post('http://${REPLACE_IP_HERE}:3002/rag', {
         data: {
           message: inputText
         }
@@ -36,8 +37,21 @@ function AI() {
   
        if(response.status == 200) {
         console.log('Response successful');
-        // Display the agent response if received
-        console.log(response.data);
+        // Display the agent response in console
+        console.log('Agent Response: ' + response.data?.data?.content);
+        const agentResponse = response.data?.data?.content || 'Sorry, I am unable to answer that.';
+
+        if(agentResponse) {
+          // Add agent response to chat messages
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { id: Math.random().toString(), text: response.data?.data?.content, sender: "agent"},
+          ]);
+        }
+        else {
+          console.error('Agent response is undefined');
+        }
+
        }
        else {
         console.log('Response unsuccessful');
@@ -45,7 +59,7 @@ function AI() {
        }
     }
     catch(err) {
-      console.error(err);
+      console.error('Error communicating with backend: ', err);
     }
   };
 
