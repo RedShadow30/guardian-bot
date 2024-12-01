@@ -2,8 +2,12 @@ import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
 import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
-import police_stations from "../../assets/data/dfw_police_stations.json"
+import police_stations from "../../assets/data/dfw_police_stations.json";
+import hospitals from "../../assets/data/dfw_hospitals.json";
+import colleges from "../../assets/data/dfw_colleges.json";
 import PoliceMarker from '../../components/PoliceMarker';
+import HospitalMarker from '../../components/HospitalMarker';
+import CollegeMarker from '../../components/CollegeMarker';
 
 // Initial Region set to Grapevine (center): UNT, TCU, SMU
 const INITIAL_REGION = {
@@ -27,6 +31,16 @@ function Home() {
                 {/* Traverse over the list of police stations and place marker for each on map */}
                 {police_stations.map((station) => (
                     <PoliceMarker key={station.id} station={station} />
+                ))}
+
+                {/* Traverse over the list of hospitals and place marker for each on map */}
+                {hospitals.map((hospital) => (
+                    <HospitalMarker key={hospital.id} hospital={hospital} />
+                ))}
+
+                {/* Traverse over the list of colleges and place marker for each on map */}
+                {colleges.map((college) => (
+                    <CollegeMarker key={college.id} college={college} />
                 ))}
             </MapView>
         </View>

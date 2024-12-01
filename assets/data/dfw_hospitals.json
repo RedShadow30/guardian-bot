@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "latitude": 33.218105,
+        "longitude": -97.167260,
+        "address": "3000 I-35, Denton, TX 76201",
+        "title": "Texas Health Presbyterian Hospital Denton"
+    },
+    {
+        "id": 2,
+        "latitude": 33.043584,
+        "longitude": -96.836995,
+        "address": "6200 W Parker Rd, Plano, TX 75093",
+        "title": "Texas Health Plano"
+    },
+    {
+        "id": 3,
+        "latitude": 32.735655,
+        "longitude": -97.339262,
+        "address": "1301 Pennsylvania Ave, Fort Worth, TX 76104",
+        "title": "Texas Health Harris Methodist Hospital"
+    },
+    {
+        "id": 4,
+        "latitude": 32.812,
+        "longitude": -96.84,
+        "address": "5323 Harry Hines Blvd, Dallas, TX 75390",
+        "title": "UT Southwestern Medical Center"
+    }
+]

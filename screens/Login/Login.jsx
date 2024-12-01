@@ -1,6 +1,7 @@
 const { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import axios from 'axios'
 import styles from './styles';
 
 function Login() {
@@ -32,27 +33,24 @@ function Login() {
             console.log('Authenticating...');
 
             // API request to backend API to authenticate user
-            const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/auth`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            const response = await axios.post(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/auth`, {
+                data: {
                     email: email,
-                    password: password,
-                }),
-            });
+                    password: password
+                },
+                
+            }, {timeout: 10000});
 
-            if(response.ok) {
-                const data = await response.json();
+            if(response.status == 200) {
+                const data = await response.data.success;
                 console.log('Login successful: ', data);
 
                 // Check for user profile existence before registering a profile
-                const profileResponse = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile?email=${email}`)
-                
+                const profileResponse = await axios.get(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile?email=${email}`)
+
                 // Check returned response to see if profile exists with exists property
-                if(profileResponse.ok) {
-                    const profileData = await profileResponse.json();
+                if(profileResponse.status == 200) {
+                    const profileData = await profileResponse.data;
 
                     // Profile exists then go to HomeScreen
                     if(profileData.exists) {
@@ -88,11 +86,21 @@ function Login() {
         } 
         // Invalid then display error message
         catch(error) {
-            console.error(error);
-            // Update error state
-            setErrors('Error logging in: ' + error.message);
-            console.log(error.message);
-            
+            // Backend error
+            if(error.response) {
+                const backendError = error.response.data.message;
+                console.error('Backend error:', backendError);
+                setErrors(backendError);
+            }
+            // No response error
+            else if(error.request) {
+                console.error('No response from server:', error.request);
+                setErrors('No response from server.');                
+            }
+            else {
+                console.error('Error:', error.message);
+                setErrors('Unexpected error occurred.')
+            }
         }
         console.log(email, password);
     };

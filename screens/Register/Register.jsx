@@ -1,6 +1,7 @@
 const { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, ScrollView } = require("react-native")
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
+import axios from 'axios';
 import styles from './styles';
 
 function Register() {
@@ -50,12 +51,8 @@ function Register() {
         // Profile Creation
         try {
             // API request to backend API to create profile
-            const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            const response = await axios.post(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/registerProfile`, {
+                data: {
                     fullName: fullName,
                     email: email,
                     university: university,
@@ -63,30 +60,24 @@ function Register() {
                     floor: floor,
                     room: room,
                     contacts: contacts.filter(contact => contact.trim() !== ''), // Only include non-empty contacts
-                }),
+                },
             });
 
-            if(response.ok) {
-                // Parse response text
-                const data = await response.json();
-                console.log('Profile created successfully: ', data);
+            // If profile created then go to RegisterSuccess Page
+            if(response.status == 200) {
+                // Log profile info
+                console.log('Profile created successfully.');
                 // Successful then go to Registration Successful page
-                navigation.navigate('RegisterSuccess', email)
-            }
-            else {
-                // Display error message
-                const errorRes = await response.json();
-                console.log(errorRes);
+                navigation.navigate('RegisterSuccess', { email } )  // Pass email as a params object {}
             }
         } 
         // Invalid then display error message
         catch(error) {
             // Update error state
             setErrors('Error: Invalid input');
-            console.log('Error registering profile: ' + error.message);
+            console.log('Error registering profile: ' + error.response.data.message);
             
         }
-        console.log(email, university, residence, floor, room, contacts);
     };
 
     return (

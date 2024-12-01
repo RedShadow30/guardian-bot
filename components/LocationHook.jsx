@@ -6,6 +6,9 @@ const LocationHook = () => {
     const [errorMsg, setErrorMsg] = useState('');
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
+    const [street, setStreet] = useState('');
+    const [district, setDistrict] = useState('');
+    const [subregion, setSubRegion] = useState('');
 
     const getUserLocation = async() => {
         // Get the user's permission to access location
@@ -32,8 +35,12 @@ const LocationHook = () => {
             // Convert to Human readable format (Country, State, etc.)
             let response = await Location.reverseGeocodeAsync({
                 latitude,
-                longitude
+                longitude,
             })
+
+            setStreet(response[0].street);
+            setDistrict(response[0].district);
+            setSubRegion(response[0].subregion);
 
             console.log('USER LOCATION IS', response);
             
@@ -45,7 +52,7 @@ const LocationHook = () => {
         getUserLocation();
     }, []);
 
-  return ({latitude, longitude, errorMsg})
+  return ({latitude, longitude, street, district, subregion, errorMsg})
 }
 
 export default LocationHook;

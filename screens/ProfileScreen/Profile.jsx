@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from './styles';
+import axios from 'axios';
 import { FontAwesome5, MaterialIcons } from 'react-native-vector-icons'; // Import icons
 
 const Profile = ({ route }) => {
@@ -11,29 +12,24 @@ const Profile = ({ route }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        const responseText = await response.text();
+        // Retrieve user's profile info based on their email
+        const response = await axios.get(`http://${REPLACE_IP_HERE}:${REPLACE_PORT_HERE}/api/profile?email=${email}`);
         
-        if (response.ok) {
-          const jsonData = JSON.parse(responseText);
-          setProfileInfo(jsonData);
-        } else {
-          throw new Error(responseText);
-        }
+        // Update profile info based on the request
+        if (response.status == 200) {
+          setProfileInfo(response.data);
+        } 
       }
       catch (err) {
-        setError(err.message);
+        console.error(err.response.data.message);
+        setError(err.response.data.message);
       }
     };
 
     fetchProfile();
   }, [email]);
 
+  // Display the error if received
   if (error) {
     return (
       <View style={styles.container}>
@@ -42,6 +38,7 @@ const Profile = ({ route }) => {
     );
   }
 
+  // Unable to retrieve profile info then display loading page
   if (!profileInfo) {
     return (
       <View style={styles.container}>
@@ -63,8 +60,8 @@ const Profile = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.profileImageContainer}>
         <Image 
-  source={require('../../assets/GuardianBot.png')}
-  style={styles.profileImage}
+          source={require('../../assets/GuardianBot.png')}
+          style={styles.profileImage}
           resizeMode="contain"
         />
       </View>
@@ -79,6 +76,8 @@ const Profile = ({ route }) => {
       <View style={styles.sectionContainer}>
         <Text style={styles.emergencyContactsTitle}>Emergency Contacts</Text>
         <View style={styles.contactsContainer}>
+          
+          {/* If contacts exists then loop through and display each phone number */}
           {profileInfo.contacts && profileInfo.contacts.length > 0 ? (
             profileInfo.contacts.map((contact, index) => (
               <View key={index} style={styles.contactItemContainer}>

@@ -5,20 +5,27 @@ const router = express.Router();
 
 // POST route for registering user profile
 router.post('/', async (req, res) => {
+    const request = req.body.data;
+    console.log('POST Req for Profile: ' + req.body.data);
+    
+
     // Validate request body
-    const { error } = validate(req.body);
-    if (error) return res.status(400).send(error.details[0].message);
+    const { error } = validate(request);
+    if(error) {
+        console.log(error);
+        return res.status(500).json({message: 'Internal server error'});
+    }
 
     // Look up user by email
     console.log('Finding user email in collection');
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: request.email });
     
     // If user's email is not authorized return not found
     if (!user) return res.status(400).send('User not found');
     console.log('User email found');
 
     // Check if the profile already exists
-    let profile = await Profile.findOne({ email: req.body.email });
+    let profile = await Profile.findOne({ email: request.email });
     if (profile) {
         console.log('Profile already exists');
         return res.status(200).send('Profile already exists'); // User can navigate to HomeScreen
@@ -27,21 +34,21 @@ router.post('/', async (req, res) => {
     console.log('Creating user profile...');
     // Create new profile if it doesn't exist
     profile = new Profile({
-        fullName: req.body.fullName,
-        university: req.body.university,
-        residence: req.body.residence,
-        floor: req.body.floor,
-        room: req.body.room,
-        contacts: req.body.contacts,
+        fullName: request.fullName,
+        university: request.university,
+        residence: request.residence,
+        floor: request.floor,
+        room: request.room,
+        contacts: request.contacts,
         email: user.email 
     });
     
     try {
-        // Received correctly formatted inputs then create profile
+        // Received correctly formatted inputs then create profile and return 200 status code
         await profile.save(); 
         console.log('Created User Profile');
         
-        res.status(201).send(profile); 
+        res.status(200).send(profile); 
         
     }
     catch(error) {
@@ -53,6 +60,8 @@ router.post('/', async (req, res) => {
 router.get('/', async(req, res) => {
     console.log('Checking if profile exists...');
 
+    console.log(req.query);
+    
     const { email } = req.query;
 
     // Fetch request must send email
