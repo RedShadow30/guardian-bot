@@ -69,7 +69,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   profileImage: {
-    width: 120,
+    width: 127,
     height: 120,
     borderRadius: 60,
     borderWidth: 3,
