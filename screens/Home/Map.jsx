@@ -27,6 +27,7 @@ function Home() {
             <MapView 
                 style={styles.map}
                 initialRegion={INITIAL_REGION}
+                showsUserLocation={true}
             >
                 {/* Traverse over the list of police stations and place marker for each on map */}
                 {police_stations.map((station) => (
