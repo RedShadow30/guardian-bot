@@ -49,61 +49,88 @@ export const generatePrompt = async(searches, question) => {
 
     // Create the prompt to send to the LLM
     const prompt = PromptTemplate.fromTemplate(`
-        Instruction: Answer the question using only the context provided below. Do not include any information that is not explicitly mentioned or directly inferable from the context.
+        Instruction: Answer the question using only the context provided below. If the context does not contain information relevant to the question, acknowledge this and avoid making assumptions.
+        For questions related to phone numbers, refer ONLY to the "Phone Numbers Directory" section below, IGNORE other phone numbers mentioned in the context.
+        
         ---
         Context:
         {context}
         ---
+
+        Phone Numbers Directory:
+        - UNT Police: 940-565-3000
+        - UNT Anonymous Report: 940-369-TIPS
+        - TCU Police: 817-257-7777
+
+        ---
+
         Guidelines for Answering:
 
-        Relevance Check:
+        1. Relevance Check:
+        - If the question is unrelated to the provided context or cannot be answered based on it, respond with:
+            - "Sorry, I cannot answer this based on the provided context."
+        - Use semantic understanding to identify and prioritize relevant sections in the context.
 
-        If the question is unrelated to the context or cannot be answered using the given content, respond with:
-        "Sorry, I cannot answer this."
-        Answering Questions:
+        2. Campus-Specific Guidance:
+        - Associate information with the correct campus. For example, if the question specifies "UNT," use UNT-related context only. 
+        - If the campus is not mentioned, provide a general answer but indicate which campus's guidelines are being referenced.
 
-        Abstract Questions:
-        For abstract questions (e.g., "What is the campus police phone number?" or "What should I do if someone is stalking me?") that DO NOT specify which campus they need information from. Provide a clear and direct and concise answer derived solely from
-        each campus-related context.
-        Example: "If you are a UNT student, the number is 940-565-3000. If you are a TCU student, the number is 817.257.7777."
-        
-        Simple Questions:
-        For fact-based questions with the campus name stated (e.g., "What is the UNT campus police phone number?"), provide a clear and direct answer derived solely from the campus-related context. In the provided example's question, UNT is the campus.
-        Example: "The UNT campus police phone number is 940-565-3000."
-        
-        Step-Based Questions:
-        If the question asks for actions or procedures, provide a step-by-step list.
-        Begin the response by instructing the user to report the issue using GuardianBot.
-        Ensure every step is directly related to the context.
-        
-        Content Filtering:
-        Do not include general knowledge, assumptions, or irrelevant details.
-        
-        Example Scenarios:
+        3. Handling Abstract Questions:
+        - Identify the key theme or scenario in the user's query (e.g., stalking = personal safety, harassment).
+        - Use semantic matching to locate the most relevant part of the context. If uncertain, provide general safety advice derived from the context, specifying the campus.
+
+        Example:
+        - Question: "What should I do if someone is stalking me?"
+            Response: "For UNT, report the incident by clicking the SOS button on GuardianBot. Call 911 for immediate help. Document the time, location, and identifying information of the stalker."
+
+        4. Handling Procedural Questions:
+        - For questions asking for actions or procedures, provide a numbered list of steps directly from the context.
+        - Always begin procedural answers with: "Report the issue using GuardianBot."
+
+        5. Handling Mismatched Context:
+        - If retrieved context is unrelated, clarify: "The retrieved information does not address the question. Please specify or reframe your query."
+
+        6. Content Filtering:
+        - Avoid assumptions or general knowledge not found in the context.
+        - Ignore unrelated details from other campuses unless explicitly asked.
+
+        7. Response Format:
+        - For fact-based queries: Provide a concise answer.
+        - For abstract or procedural questions: Use a step-by-step format.
+        - Always specify the campus or indicate if context is general.
+
+        ---
+
+        Examples:
+
         Scenario 1:
-        Question: "What should I do if someone is stalking me?"
-        Response:
-        Report the stalking by clicking the SOS button on GuardianBot.
-        Call 911 if immediate help is required.
-        Document details like time, location, and any identifying information.
-        
+        - Question: "What should I do if someone is stalking me?"
+            Response: 
+            - Report the stalking by clicking the SOS button on GuardianBot.
+            - Call 911 for immediate help.
+            - Document details like time, location, and identifying information.
+            (Derived from UNT guidelines.)
+
         Scenario 2:
-        Question: "What should I do if I see a car accident?"
-        Response:
-        Report the accident using GuardianBot and call 911.
-        Check for injuries and provide assistance if safe.
-        Follow any additional steps mentioned in the context.
-        
+        - Question: "What should I do if I see a car accident?"
+            Response:
+            - Report the accident using GuardianBot and call 911.
+            - Check for injuries and provide assistance if safe.
+            - Follow any additional steps mentioned in the context.
+            (Derived from TCU guidelines.)
+
+        Scenario 3 (Unrelated Context):
+        - Question: "How do I prepare for a fire drill?"
+            Response: "Sorry, I cannot answer this based on the provided context."
+
+        ---
+
         Evaluation Criteria:
-        Always ensure that the response is:
-        Directly relevant to the question.
-        Fully based on the provided context.
-        Free from extraneous or unrelated information.
-        
-        Structure of Responses:
-        Use numbered steps for procedural answers.
-        For simple fact-based queries, return a single direct answer.
-        Answer the question AND provide which CAMPUS the context was derived from: {question}
+        - Responses must be directly relevant.
+        - Fully based on the provided context.
+        - Free from assumptions or irrelevant details.
+
+        Question: {question}
     `);
 
     // Specify the variables that are used in the prompt
