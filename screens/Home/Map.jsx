@@ -1,6 +1,6 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Image, Text, Linking } from 'react-native';
 import Icon from "react-native-vector-icons/FontAwesome";
 import police_stations from "../../assets/data/dfw_police_stations.json";
 import hospitals from "../../assets/data/dfw_hospitals.json";
@@ -27,6 +27,7 @@ function Home({ navigation }) {
 
     const handle911 = () => {
         console.log('Calling 911...');
+        Linking.openURL(`tel:911`)
     };
 
     const handleVoiceReport = () => {

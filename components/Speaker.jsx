@@ -26,7 +26,7 @@ const Speaker = ({ message }) => {
             style={styles.floatingButton}
             onPress={speakMsg}
         >
-            <Icon name="book" size={25} color={"#000000"} />
+            <Icon name="book" size={25} color={"#FFFFFF"} />
         </TouchableOpacity>
         </View>
     );
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         bottom: 50,
         width: 60,
         height: 60,
-        backgroundColor: '#e6e7e8',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // alpha value adjusted for transparency,
         alignItems: 'center', // centers horizontally
         justifyContent: 'center', // center vertically
         borderRadius: 50,
