@@ -5,10 +5,14 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "newArchEnabled": false,
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "domains": ["*"]
+      "domains": ["*"],
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "This app uses text-to-speech features to read out content.",
+        "NSSpeechRecognitionUsageDescription": "This app uses speech features to improve user interaction."
+      }
     },
     "android": {
       "domains": ["*"]
