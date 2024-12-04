@@ -49,12 +49,22 @@ const styles = StyleSheet.create({
     },
     editButton: {
         marginRight: 15, // Adjust to your preference
-      },
-      editButtonText: {
+    },
+    editButtonText: {
         fontSize: 16,
         color: '#900404', // Color to match your theme
         fontWeight: 'bold',
-      },
+    },
+    dropdown: {
+        margin: 16,
+        height: 50,
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.5,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
       
 });
 

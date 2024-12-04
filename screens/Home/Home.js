@@ -7,6 +7,7 @@ import AI from '../AIScreen/AI';
 import SOS from '../SOSScreen/SOS'; 
 import Profile from '../ProfileScreen/Profile';
 import ReportedPage from '../SOSScreen/ReportedScreen/ReportedPage';
+import AnonymousReportPage from '../SOSScreen/ReportedScreen/AnonymousReportPage';
 import ThankYouPage from '../SOSScreen/ReportedScreen/ThankYouScreen/ThankYouScreen';
 import About from './HamburgerMenu/About/About'; 
 import Guides from './HamburgerMenu/Guides/Guides';
@@ -193,8 +194,16 @@ function BottomTabs() {
         options={{
           tabBarButton: () => null, // Hide the Thank You Page from the tab bar
           tabBarStyle: { display: 'none' } // Hides the tab bar when on this page
-        
         }} 
+      />
+
+      <Tab.Screen
+        name="AnonymousReportPage"
+        component={AnonymousReportPage}
+        options={{
+          tabBarButton: () => null, 
+          tabBarStyle: { display: 'none' }
+        }}
       />
     </Tab.Navigator>
   );

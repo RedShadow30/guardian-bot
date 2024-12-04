@@ -1,7 +1,7 @@
 import React from 'react';
 import MapView, { Marker } from 'react-native-maps';
-import { StyleSheet, View, TouchableOpacity, Text, Image } from 'react-native';
-import { Icon } from "react-native-vector-icons/MaterialCommunityIcons";
+import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
+import Icon from "react-native-vector-icons/FontAwesome";
 import police_stations from "../../assets/data/dfw_police_stations.json";
 import hospitals from "../../assets/data/dfw_hospitals.json";
 import colleges from "../../assets/data/dfw_colleges.json";
@@ -17,8 +17,22 @@ const INITIAL_REGION = {
     longitudeDelta: 1.2,
 }
 
-function Home() {
+function Home({ navigation }) {
     console.log("Home Screen reached!");
+
+    // Take to Anonymouse Report page 
+    const handleAnon = () => {
+        navigation.navigate('AnonymousReportPage');
+    };
+
+    const handle911 = () => {
+        console.log('Calling 911...');
+    };
+
+    const handleVoiceReport = () => {
+        console.log('Voice report triggered');
+        
+    };
     
     return (
         <View style={styles.container}>
@@ -44,6 +58,21 @@ function Home() {
                     <CollegeMarker key={college.id} college={college} />
                 ))}
             </MapView>
+            {/* 911 Button */}
+            <TouchableOpacity style={[styles.floatingButton, styles.button1]} onPress={handle911}>
+                <Text style={styles.text}>911</Text>
+            </TouchableOpacity>
+
+            {/* Anonymous Reporting Button */}
+            <TouchableOpacity style={[styles.floatingButton, styles.button2]} onPress={handleAnon}>
+                <Icon name="user-secret" size={30} color={"#FFFFFF"}/>
+            </TouchableOpacity>
+
+            {/* Voice Reporting Button */}
+            <TouchableOpacity style={[styles.floatingButton, styles.button3]} onPress={handleVoiceReport}>
+                <Icon name="microphone" size={25} color={"#FFFFFF"}/>
+            </TouchableOpacity>
+
         </View>
     );
 }
@@ -57,6 +86,34 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    floatingButton: {
+        position: 'absolute',
+        right: 20,
+        bottom: 50,
+        width: 60,
+        height: 60,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // alpha value adjusted for transparency
+        alignItems: 'center', // centers horizontally
+        justifyContent: 'center', // center vertically
+        borderRadius: 50,
+    },
+    button1: {
+        top: 170,
+        right: 20,
+    },
+    button2: {
+        top: 90,
+        right: 20,
+    },
+    button3: {
+        top: 250,
+        right: 20,
+    },
+    text: {
+        fontSize: 20,
+        fontWeight: 900,
+        color: '#f52323',
+    }
 });
 
 export default Home;
