@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, ScrollView, Button } from 'react-native';
 import GradientButton from '../../../components/GradientButton'; 
 import useLocation from '../../../components/LocationHook';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Audio } from 'expo-av';
 import axios from 'axios';
 import styles from './styles';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const VoiceReportPage = ({ route, navigation }) => {
   // Get email from route
   const {email} = route.params;
   const [profileInfo, setProfileInfo] = useState({});
   // Get user permission to get Location and store if granted
-  const {latitude, longitude, street, district, subregion, errMsg} = useLocation();
+  const {latitude, longitude, street, streetNum, district, subregion, errMsg} = useLocation();
 
-  // Stores transcribed voice message
-  const [transcript, setTransript] = useState("");
-  // Check if recording or not
-  const [isRecording, setIsRecording] = React.useState(false);
+  // Checks if recording
+  const [recording, setRecording] = useState();
+  // Stores audio messages
+  const [recordings, setRecordings] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async() => {
@@ -40,25 +41,83 @@ const VoiceReportPage = ({ route, navigation }) => {
     fetchProfile();
   }, [email]);      // Update email if it changed
 
-  // TODO: Starts recording
-  const handleStart = async () => {
-    // TODO: Get permissions
-    setIsRecording(true);
-    console.log('started rec');
+  // Start recording
+  async function startRecording() {
+    try {
+      // Get permission
+      const perm = await Audio.requestPermissionsAsync();
+      if(perm.status === 'granted') {
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: true,
+          playsInSilentModeIOS: true,
+        });
+
+        // Start the recording and update state var storing latest recording
+        const { recording } = await Audio.Recording.createAsync(Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY);
+        setRecording(recording)
+      }
+    } catch (err) {
+      console.log('Start recording error:', err);
+    }
   }
 
-  // TODO: Stops recording
-  const handleStop = async () => {
-    setIsRecording(false);
-    console.log('stopping rec');
+  // Stop recording
+  async function stopRecording() {
+    setRecording(undefined);
+
+    await recording.stopAndUnloadAsync();
+    let allRecordings = [...recordings];
+    const { sound, status } = await recording.createNewLoadedSoundAsync();
+
+    // Add new recording to array of other recordings
+    allRecordings.push({
+      sound: sound,
+      duration: getDuration(status.durationMillis),
+      file: recording.getURI()
+    });
+
+    // Update state var holding all recordings
+    setRecordings(allRecordings);
   }
+
+  // Get duration of the audio
+  function getDuration(ms) {
+    const minutes = ms / 1000 /60;
+    const seconds = Math.round((minutes - Math.floor(minutes)) * 60);
+    // Return formatted time duration
+    return seconds < 10 ? `${Math.floor(minutes)}:0${seconds}` : `${Math.floor(minutes)}:${seconds}`
+  }
+
+  // Function to display each recording
+  function getRecordingLines() {
+    return recordings.map((recordingLine, index) => {
+      // Return each audio message as a separate view
+      return (
+        <View key={index} style={styles.row}>
+          <Text style={styles.fill}>Recording {index + 1}</Text>
+          <Text>{recordingLine.duration}</Text>
+          {/* Play Button - Below is iOS configs ONLY. TODO: Android */}
+          <Button onPress={async () => {
+            await recordingLine.sound.setVolumeAsync(1.0); // Set volume to maximum
+              recordingLine.sound.replayAsync();
+              console.log('Played recording');
+            }} title='Play'
+          />
+        </View>
+      );
+    });
+  }
+
+  // Function to erase all recordings
+  function clearRecordings() { setRecordings([]); }
 
   const handleThankYouPage = () => {
     // Make sure user recorded their message
-    if(transcript) {
+    if(recordings.length > 0) {
       // Navigate to Thank You page and ensure previous data is cleared
       navigation.navigate('ThankYouPage');
-      setTransript(null);
+      setRecordings([]);
+
     }
     else {
       alert('Please send record your message.');
@@ -85,50 +144,40 @@ const VoiceReportPage = ({ route, navigation }) => {
     <ScrollView>
       <View style={styles.container}>
 
-        <Text style={styles.title}>Voice Report Details</Text>
+          <Text style={styles.title}>Voice Report Details</Text>
 
-        <View style={styles.detailBox}>
-          <Text style={styles.label}>Transcribed Message:</Text>
-          {/* Display the Speech-to-Text message */}
-          <TextInput 
-            multiline
-            style={styles.value}
-            numberOfLines={6}
-            value={transcript}
-            maxLength={500}
-            editable={true}
-          />
-        </View>
+          <View style={styles.detailBox}>
+            <Text style={styles.label}>Audio Message:</Text>
+            {/* Display the recorded audio messages */}
+            {getRecordingLines()}
+            {/* Given option to clear the messages */}
+            {recordings.length > 0? <Button title='Clear' onPress={clearRecordings} /> : <></>}
+          </View>
 
         {/* Record component */}
         <View style={styles.voiceContainer}>
-          {!isRecording? (
-          <GradientButton text="Start Recording" onPress={handleStart} isSelected={false}/>
-          ) : (
-            <GradientButton text="Stop Recording" onPress={handleStop} isSelected={true}/>
-          )}
+          <GradientButton text={recording ? 'Stop Recording' : 'Start Recording'} onPress={recording ? stopRecording : startRecording} />
         </View>
 
-        {/* Profile Details */}
-        <View style={styles.detailBox}>
-          <Text style={styles.label}>University:</Text>
-          <Text style={styles.value}>{profileInfo.university}</Text>
-        </View>
+          {/* Profile Details */}
+          <View style={styles.detailBox}>
+            <Text style={styles.label}>University:</Text>
+            <Text style={styles.value}>{profileInfo.university}</Text>
+          </View>
 
         <View style={styles.detailBox}>
           <Text style={styles.label}>Full Name:</Text>
           <Text style={styles.value}>{profileInfo.fullName}</Text>
         </View>
 
-        {/* Display user location */}
-        <View style={styles.detailBox}>
-          <Text style={styles.label}>Location:</Text>
-          <Text style={styles.value}>Latitude: {latitude}</Text>
-          <Text style={styles.value}>Longitude: {longitude}</Text>
-          <Text style={styles.value}>Street: {street}</Text>
-          <Text style={styles.value}>District: {district}</Text>
-          <Text style={styles.value}>Subregion: {subregion}</Text>
-        </View>
+          {/* Display user location */}
+          <View style={styles.detailBox}>
+            <Text style={styles.label}>Location:</Text>
+            <Text style={styles.value}>Latitude: {latitude}</Text>
+            <Text style={styles.value}>Longitude: {longitude}</Text>
+            <Text style={styles.value}>Street: {streetNum + ' ' + street}</Text>
+            <Text style={styles.value}>Subregion: {subregion}</Text>
+          </View>
 
         {/* Change button to navigate to Thank You page */}
         <GradientButton 

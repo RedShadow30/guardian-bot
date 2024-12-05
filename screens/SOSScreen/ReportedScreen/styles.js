@@ -71,7 +71,18 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-around",
         marginTop: -30,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 40
       },
+      fill: {
+        flex: 1,
+        margin: 15
+      }
 });
 
 export default styles;
