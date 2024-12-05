@@ -11,7 +11,7 @@ const ReportedPage = ({ route, navigation }) => {
   const [error, setError] = useState(null);
   const [ profileInfo, setProfileInfo ] = useState({});
   // Get user permission to get Location and store if granted
-  const {latitude, longitude, street, district, subregion, errMsg} = useLocation();
+  const {latitude, longitude, street, streetNum, district, subregion, errMsg} = useLocation();
 
   useEffect(() => {
     const fetchProfile = async() => {
@@ -92,8 +92,7 @@ const ReportedPage = ({ route, navigation }) => {
         <Text style={styles.label}>Location:</Text>
         <Text style={styles.value}>Latitude: {latitude}</Text>
         <Text style={styles.value}>Longitude: {longitude}</Text>
-        <Text style={styles.value}>Street: {street}</Text>
-        <Text style={styles.value}>District: {district}</Text>
+        <Text style={styles.value}>Street: {streetNum + ' ' + street}</Text>
         <Text style={styles.value}>Subregion: {subregion}</Text>
       </View>
 
