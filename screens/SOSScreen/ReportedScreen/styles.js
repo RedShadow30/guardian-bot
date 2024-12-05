@@ -65,7 +65,13 @@ const styles = StyleSheet.create({
         height: 40,
         fontSize: 16,
     },
-      
+    voiceContainer: {
+        height: "20%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "space-around",
+        marginTop: -30,
+      },
 });
 
 export default styles;

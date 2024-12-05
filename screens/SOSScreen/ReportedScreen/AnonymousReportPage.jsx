@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
-import GradientButton from '../../../components/GradientButton'; // Adjust the import based on your file structure
+import GradientButton from '../../../components/GradientButton';
 import useLocation from '../../../components/LocationHook';
 import { Dropdown } from 'react-native-element-dropdown';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 const AnonymousReportPage = ({ navigation }) => {
   // Stores selected crime
   const [value, setValue] = useState(null);
+  // Stores user message
+  const [message, setMessage] = useState('');
   // Get user permission to get Location and store if granted
   const {latitude, longitude, street, district, subregion, errMsg} = useLocation();
-
+  
   const crimes = [
     { label: 'Break-In', value: '1' },
     { label: 'Harassment', value: '2' },
@@ -20,12 +23,35 @@ const AnonymousReportPage = ({ navigation }) => {
     { label: 'Vandalism', value: '6' },
     { label: 'Other', value: '7' },
   ];
-
+  
   const handleThankYouPage = () => {
-    // Navigate to Thank You page and ensure previous data is cleared
-    navigation.navigate('ThankYouPage');
-    setValue(null);
+    // Make sure crime type is selected
+    if(value) {
+      // Navigate to Thank You page and ensure previous data is cleared
+      navigation.navigate('ThankYouPage');
+      setValue(null);
+      setMessage('');
+    }
+    else {
+      alert('Please select crime to report');
+    }
   };  
+
+    // Go Home
+    const handleBack = () => {
+      navigation.navigate('Home');
+    }
+    
+    // Set header options to include the Edit button
+    React.useLayoutEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => (
+          <TouchableOpacity onPress={handleBack} >
+            <Icon name="arrow-left" size={23} color={"#000000"} style={{marginLeft: 30}}/>
+          </TouchableOpacity>
+        ),
+      });
+    }, [navigation]);
     
   return (
     <View style={styles.container}>
@@ -56,7 +82,12 @@ const AnonymousReportPage = ({ navigation }) => {
       {/* Allow user to optionally send a message */}
       <View style={styles.detailBox}>
         <Text style={styles.label}>Message:</Text>
-        <TextInput style={styles.value} placeholder='Type here... (Optional)'></TextInput>
+        <TextInput 
+          style={styles.value} 
+          placeholder='Type here... (Optional)'
+          onChangeText={message => {setMessage(message)}}
+        >
+        </TextInput>
       </View>
 
       {/* Display user location */}

@@ -8,6 +8,7 @@ import SOS from '../SOSScreen/SOS';
 import Profile from '../ProfileScreen/Profile';
 import ReportedPage from '../SOSScreen/ReportedScreen/ReportedPage';
 import AnonymousReportPage from '../SOSScreen/ReportedScreen/AnonymousReportPage';
+import VoiceReportPage from '../SOSScreen/ReportedScreen/VoiceReportPage';
 import ThankYouPage from '../SOSScreen/ReportedScreen/ThankYouScreen/ThankYouScreen';
 import About from './HamburgerMenu/About/About'; 
 import Guides from './HamburgerMenu/Guides/Guides';
@@ -200,6 +201,16 @@ function BottomTabs() {
       <Tab.Screen
         name="AnonymousReportPage"
         component={AnonymousReportPage}
+        options={{
+          tabBarButton: () => null, 
+          tabBarStyle: { display: 'none' }
+        }}
+      />
+
+      <Tab.Screen
+        name="VoiceReportPage"
+        initialParams={{ email }} // Pass email to Voice report
+        component={VoiceReportPage}
         options={{
           tabBarButton: () => null, 
           tabBarStyle: { display: 'none' }

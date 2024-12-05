@@ -25,14 +25,16 @@ function Home({ navigation }) {
         navigation.navigate('AnonymousReportPage');
     };
 
+    // Android takes user to phone app, iOS has 911 call button pop-up within GuardianBot app
     const handle911 = () => {
         console.log('Calling 911...');
         Linking.openURL(`tel:911`)
     };
 
+    // Take to Voice Report Page
     const handleVoiceReport = () => {
-        console.log('Voice report triggered');
-        
+        console.log('Going to Voice report page');
+        navigation.navigate('VoiceReportPage')
     };
     
     return (

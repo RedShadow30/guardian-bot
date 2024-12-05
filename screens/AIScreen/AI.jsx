@@ -18,7 +18,7 @@ function AI() {
     setMessages([
       {
         _id: 1,
-        text: "Hey there, how may I assist you?",
+        text: "Hi I'm Jarvis, how may I assist you?",
         createdAt: new Date(),
         user: {
           _id: 2,

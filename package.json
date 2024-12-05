@@ -43,7 +43,8 @@
     "react-navigation-header-buttons": "^12.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "typescript": "^5.3.3"
   },
   "private": true,
   "newArchEnabled": true
