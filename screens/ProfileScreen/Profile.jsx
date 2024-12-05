@@ -60,7 +60,7 @@ const Profile = ({ route }) => {
     <View style={styles.container}>
       <View style={styles.profileImageContainer}>
         <Image 
-          source={require('../../assets/GuardianBot.png')}
+          source={require('../../assets/unt_logo.png')}
           style={styles.profileImage}
           resizeMode="contain"
         />

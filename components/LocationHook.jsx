@@ -7,6 +7,7 @@ const LocationHook = () => {
     const [longitude, setLongitude] = useState('');
     const [latitude, setLatitude] = useState('');
     const [street, setStreet] = useState('');
+    const [streetNum, setStreetNum] = useState('');
     const [district, setDistrict] = useState('');
     const [subregion, setSubRegion] = useState('');
 
@@ -39,6 +40,7 @@ const LocationHook = () => {
             })
 
             setStreet(response[0].street);
+            setStreetNum(response[0].streetNumber);
             setDistrict(response[0].district);
             setSubRegion(response[0].subregion);
 
@@ -52,7 +54,7 @@ const LocationHook = () => {
         getUserLocation();
     }, []);
 
-  return ({latitude, longitude, street, district, subregion, errorMsg})
+  return ({latitude, longitude, street, streetNum, district, subregion, errorMsg})
 }
 
 export default LocationHook;

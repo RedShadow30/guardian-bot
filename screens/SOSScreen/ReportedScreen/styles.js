@@ -49,13 +49,40 @@ const styles = StyleSheet.create({
     },
     editButton: {
         marginRight: 15, // Adjust to your preference
-      },
-      editButtonText: {
+    },
+    editButtonText: {
         fontSize: 16,
         color: '#900404', // Color to match your theme
         fontWeight: 'bold',
+    },
+    dropdown: {
+        margin: 16,
+        height: 50,
+        borderBottomColor: 'gray',
+        borderBottomWidth: 0.5,
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+    },
+    voiceContainer: {
+        height: "20%",
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "space-around",
+        marginTop: -30,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 10,
+        marginRight: 40
       },
-      
+      fill: {
+        flex: 1,
+        margin: 15
+      }
 });
 
 export default styles;

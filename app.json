@@ -5,16 +5,33 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "domains": ["*"]
+      "domains": [
+        "*"
+      ],
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Allow GuardianBot to use the microphone.",
+        "NSSpeechRecognitionUsageDescription": "Allow GuardianBot to use speech recognition."
+      }
     },
     "android": {
-      "domains": ["*"]
+      "domains": [
+        "*",
+        "*"
+      ],
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.anonymous.guardianbot"
     },
-    "web": {
-      
-    },
+    "web": {},
     "plugins": [
       [
         "expo-location",
