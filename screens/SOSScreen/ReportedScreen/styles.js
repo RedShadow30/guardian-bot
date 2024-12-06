@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
         marginRight: 15, // Adjust to your preference
     },
     editButtonText: {
-        fontSize: 16,
+        fontSize: 20,
         color: '#900404', // Color to match your theme
         fontWeight: 'bold',
     },
