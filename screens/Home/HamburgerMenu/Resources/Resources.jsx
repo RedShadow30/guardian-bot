@@ -23,7 +23,7 @@ const Resources = ({ navigation }) => {
       ),
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate('AI')} style={{ marginRight: 15 }}>
-          <Icon name="rocket" size={25} color="white" />
+          <Icon name="comment" size={25} color="white" />
         </TouchableOpacity>
       ),
     });

@@ -110,7 +110,7 @@ function BottomTabs() {
     ),
     headerRight: () => (
       <TouchableOpacity onPress={() => navigation.navigate('AI')} style={{ marginRight: 15 }}>
-        <Icon name="rocket" size={25} color="white" />
+        <Icon name="comment" size={25} color="white" />
       </TouchableOpacity>
     ),
   })} 
@@ -168,7 +168,7 @@ function BottomTabs() {
         options={{
           headerTitle: () => (
             <View style={styles.headerContainer}>
-              <Icon name="rocket" size={25} color="white" />{/* Rocket icon for AI */}
+              <Icon name="comment" size={25} color="white" />{/* comment icon for AI */}
               <Text style={styles.headerText}>AI chat</Text>{/* Header Name */}
             </View>
           ),

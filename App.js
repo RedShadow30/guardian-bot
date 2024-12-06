@@ -6,16 +6,20 @@ import Register from './screens/Register/Register'
 import AppNavigator from './screens/Home/Home';
 import RegisterSuccess from './screens/Register/RegisterSuccess';
 import ActiveThreat from './screens/Home/HamburgerMenu/Guides/ActiveThreat/ActiveThreat';
+import UniSelection from './screens/UniSelection/UniSelection';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="UniversitySelection">
+        {/* Define the University Selection screen in the stack */}
+        <Stack.Screen name="UniversitySelection" component={UniSelection} />
         {/* Define the Login screen in the stack */}
         <Stack.Screen name="Login" component={Login} />
         {/* Define the Register screen in the stack */}
-       <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Register" component={Register} />
         {/* Define the Registration Success screen in the stack */}
         <Stack.Screen name="RegisterSuccess" component={RegisterSuccess} />
         {/* Define the HomeScreen that contains the BottomTabs */}
