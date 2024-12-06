@@ -1,0 +1,2 @@
+# Guardian-Bot
+GuardianBot is a mobile app designed to enhance campus safety by providing real-time crime reporting, emergency resources, and location-based features. With an intuitive interface and AI-powered assistance, it bridges communication between students and law enforcement, empowering users to act swiftly in emergencies while creating a safer campus.
